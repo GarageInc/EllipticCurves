@@ -20,6 +20,8 @@ namespace EllipticCurves
 					}
 				}
 			};
+
+			MainPage = new StartPage ();
 		}
 
 		protected override void OnStart ()
