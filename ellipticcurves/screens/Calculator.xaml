@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="EllipticCurves.Calculator">
+	<ScrollView>
+			 <StackLayout BackgroundColor="White" Padding="10, 10, 10, 10">
+		    	<Entry Placeholder="X" x:Name="entryX" Keyboard="Numeric">
+		    	</Entry>
+
+		    	<Entry Placeholder="Y" x:Name="entryY" Keyboard="Numeric">
+		    	</Entry>
+
+		    	<Entry Placeholder="N" x:Name="entryN" Keyboard="Numeric">
+		    	</Entry>
+
+		    	<Label x:Name="labelResult" Text="" Font="32">
+		    	</Label>
+
+		    	<Button x:Name="buttonAddition" Text="+" Font="32" Clicked="handler_buttonAdditionClick">
+		    	</Button>
+
+		    	<Button x:Name="buttonSubstraction" Text="-" Font="32">
+		    	</Button>
+
+		    	<Button x:Name="buttonMult" Text="*" Font="32">
+		    	</Button>
+
+		    	<Button x:Name="buttonDivision" Text="/" Font="32">
+		    	</Button>
+
+		    	<Button x:Name="buttonSqrtX" Text="sqrt(X)" Font="32">
+		    	</Button>
+
+		    	<Button x:Name="buttonPowXY" Text="X^Y" Font="32">
+		    	</Button>
+
+		    	<Button x:Name="buttonInverseX" Text="1/X" Font="32">
+		    	</Button>
+
+		    	<Button x:Name="buttonXModN" Text="X mod N" Font="32">
+		    	</Button>
+		    </StackLayout>
+	</ScrollView>
+</ContentPage>
