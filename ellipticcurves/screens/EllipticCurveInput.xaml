@@ -89,9 +89,6 @@
 					Grid.Row="7" Grid.ColumnSpan="13"  />
 			</Grid>
 
-				<Rectangle Width="30">
-				</Rectangle>
-			
 		</StackLayout>
 	</ScrollView>
 

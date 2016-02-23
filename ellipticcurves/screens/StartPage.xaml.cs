@@ -16,6 +16,11 @@ namespace EllipticCurves
 		{
 			this.Navigation.PushAsync(new Calculator(this));
 		}
+
+		private void handler_ellipticButtonClick(object sender, EventArgs e)
+		{
+			this.Navigation.PushAsync(new EllipticCurveInput(this));
+		}
 	}
 }
 
