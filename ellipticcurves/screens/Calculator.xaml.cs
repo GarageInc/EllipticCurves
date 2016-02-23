@@ -20,10 +20,13 @@ namespace EllipticCurves
 			parent = startPage;
 		}
 
-		protected void parseValues(){
-			x = new BigInteger (entryX.Text,10);
-			y = new BigInteger (entryY.Text,10);
-			n = new BigInteger (entryN.Text,10);
+		protected void parseValues( Boolean isX, Boolean isN=false, Boolean isY=false){
+			if(isX)
+				x = new BigInteger (entryX.Text,10);
+			if(isY)
+				y = new BigInteger (entryY.Text,10);
+			if(isN)
+				n = new BigInteger (entryN.Text,10);
 		}
 
 		protected void clearFields (){
@@ -38,7 +41,7 @@ namespace EllipticCurves
 		protected void handler_buttonAdditionClick(object sender, EventArgs e)
 		{
 			try{
-				parseValues();
+				parseValues(true,true,true);
 				labelResult.Text = ((x+y) % n).ToString();
 			} catch{
 				clearFields ();
@@ -49,7 +52,7 @@ namespace EllipticCurves
 		protected void handler_buttonSubstractionClick(object sender, EventArgs e)
 		{
 			try{
-				parseValues();
+				parseValues(true,true,true);
 				labelResult.Text = ((x-y) % n).ToString();
 			} catch{
 				clearFields ();
@@ -60,7 +63,7 @@ namespace EllipticCurves
 		protected void handler_buttonMultClick(object sender, EventArgs e)
 		{
 			try{
-				parseValues();
+				parseValues(true,true,true);
 				labelResult.Text = ((x*y) % n).ToString();
 
 			} catch{
@@ -72,11 +75,11 @@ namespace EllipticCurves
 		protected void handler_buttonDivisionClick(object sender, EventArgs e)
 		{
 			try{
-				parseValues();
+				parseValues(true,true,true);
 
 				BigInteger inverse = Functions.GetInverseByModule(y,n);
 
-				if(inverse<0){
+				if( inverse<0 ){
 					inverse = inverse + n;
 				}
 
@@ -90,7 +93,7 @@ namespace EllipticCurves
 		protected void handler_buttonSqrtXClick(object sender, EventArgs e)
 		{
 			try{
-				parseValues();
+				parseValues(true,true);
 				labelResult.Text = (( x.sqrt() ) % n).ToString();
 			} catch{
 				clearFields ();
@@ -101,7 +104,7 @@ namespace EllipticCurves
 		protected void handler_buttonPowXYClick(object sender, EventArgs e)
 		{
 			try{
-				parseValues();
+				parseValues(true,true,true);
 
 				labelResult.Text = ( x.modPow(y,n) ).ToString();
 			} catch{
@@ -113,7 +116,7 @@ namespace EllipticCurves
 		protected void handler_buttonInverseXClick(object sender, EventArgs e)
 		{
 			try{
-				parseValues();
+				parseValues(true,true);
 
 				BigInteger inverse = Functions.GetInverseByModule(x,n);
 			
@@ -131,7 +134,7 @@ namespace EllipticCurves
 		protected void handler_buttonXModNClick(object sender, EventArgs e)
 		{
 			try{
-				parseValues();
+				parseValues(true,true);
 
 				labelResult.Text = (x % n).ToString();
 			} catch{

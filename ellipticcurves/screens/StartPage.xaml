@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 x:Class="EllipticCurves.StartPage">
 	<ScrollView>
-		    <StackLayout BackgroundColor="White" Padding="10, 10, 10, 10">
-			    	<Button Text="Эллиптические кривые" x:Name="ellipticButton"
+		    <StackLayout Padding="10, 10, 10, 10">
+			    	<Button Text="Эллиптические кривые" x:Name="ellipticButton" Clicked="handler_ellipticButtonClick"
 			    		Font="32" VerticalOptions="StartAndExpand"/>
 			    	<Button Text="База примеров" x:Name="examplesButton"
 			    		Font="32"  VerticalOptions="StartAndExpand"/>
