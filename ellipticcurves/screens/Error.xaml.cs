@@ -14,7 +14,16 @@ namespace EllipticCurves
 			InitializeComponent ();
 
 			parent = page;
-			labelError.Text = errorText;
+
+			Label labelError = new Label { 
+				Text = errorText, 
+				Font = Font.SystemFontOfSize(30),
+				XAlign = Xamarin.Forms.TextAlignment.Center,
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.CenterAndExpand 
+			};
+						
+			stackLayout.Children.Add(labelError);
 		}
 	}
 }

@@ -16,11 +16,11 @@ namespace EllipticCurves {
     
     public partial class Error : ContentPage {
         
-        private Label labelError;
+        private StackLayout stackLayout;
         
         private void InitializeComponent() {
             this.LoadFromXaml(typeof(Error));
-            labelError = this.FindByName<Label>("labelError");
+            stackLayout = this.FindByName<StackLayout>("stackLayout");
         }
     }
 }
