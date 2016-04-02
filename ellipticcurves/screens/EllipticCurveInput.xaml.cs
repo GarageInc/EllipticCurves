@@ -9,7 +9,7 @@ namespace EllipticCurves
 	{
 		StartPage parent;
 
-		EllipticCurve curve;
+		ECPoint curve;
 
 		string errorP="";
 		string errorA="";
@@ -20,7 +20,7 @@ namespace EllipticCurves
 			InitializeComponent ();
 
 			parent = page;
-			curve = new EllipticCurve ();
+			curve = new ECPoint ();
 		}
 
 		protected void invalidateErrors(){

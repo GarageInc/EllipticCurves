@@ -6,6 +6,7 @@
 				<Entry Placeholder="Первое число X" x:Name="entryX" Keyboard="Numeric" VerticalOptions="StartAndExpand"/>
 				<Entry Placeholder="Второе число Y" x:Name="entryY" Keyboard="Numeric"   VerticalOptions="StartAndExpand"/>
 				<Entry Placeholder="Модуль N" x:Name="entryN" Keyboard="Numeric"  VerticalOptions="StartAndExpand"/>
+
 				<Label x:Name="labelResult" Font="36" 
 						BackgroundColor="Black" 
 						VerticalOptions="StartAndExpand"
@@ -13,49 +14,31 @@
 
 				<Grid  VerticalOptions="StartAndExpand">
 					<Grid.ColumnDefinitions>
-								      <ColumnDefinition Width="*" />
-								      <ColumnDefinition Width="*" />
-								      <ColumnDefinition Width="*" />
-								    </Grid.ColumnDefinitions>
-								    <Grid.RowDefinitions>
-								      <RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-
-					<Button x:Name="buttonAddition" Text="X+Y" Font="26" Clicked="handler_buttonAdditionClick" Grid.Column="0" Grid.Row="0"/>
-					<Button x:Name="buttonSubstraction" Text="X-Y" Font="26" Grid.Column="1" Grid.Row="0" Clicked="handler_buttonSubstractionClick"/>
-					<Button x:Name="buttonMult" Text="*" Font="26" Grid.Column="2" Grid.Row="0" Clicked="handler_buttonMultClick"/>
-
-				</Grid>
-
-				<Grid  VerticalOptions="StartAndExpand">
-					<Grid.ColumnDefinitions>
-								      <ColumnDefinition Width="*" />
-								      <ColumnDefinition Width="*" />
-								      <ColumnDefinition Width="*" />
-								    </Grid.ColumnDefinitions>
-								    <Grid.RowDefinitions>
-								      <RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-
-					<Button x:Name="buttonDivision" Text="X/Y" Font="26" Grid.Column="0" Grid.Row="0" Clicked="handler_buttonDivisionClick"/>
-					<Button x:Name="buttonSqrtX" Text="[sqrt(X)]" Font="22" Grid.Column="1" Grid.Row="0" Clicked="handler_buttonSqrtXClick"/>
-					<Button x:Name="buttonPowXY" Text="X^Y" Font="26" Grid.Column="2" Grid.Row="0" Clicked="handler_buttonPowXYClick"/>
-				</Grid>
-
-
-				<Grid VerticalOptions="StartAndExpand">
-				    <Grid.ColumnDefinitions>
+				      <ColumnDefinition Width="*" />
+				      <ColumnDefinition Width="*" />
+				      <ColumnDefinition Width="*" />
+				      <ColumnDefinition Width="*" />
 				      <ColumnDefinition Width="*" />
 				      <ColumnDefinition Width="*" />
 				    </Grid.ColumnDefinitions>
 				    <Grid.RowDefinitions>
 				      <RowDefinition Height="*" />
+				      <RowDefinition Height="*" />
+				      <RowDefinition Height="*" />
 				    </Grid.RowDefinitions>
 
-			    	<Button x:Name="buttonInverseX" Text="1/X" Font="26"  Grid.Column="0" Grid.Row="0" Clicked="handler_buttonInverseXClick"/>
-			    	<Button x:Name="buttonXModN" Text="X mod N" Font="26"  Grid.Column="1" Grid.Row="0" Clicked="handler_buttonXModNClick"/>
-				</Grid>
+					<Button x:Name="buttonAddition" Text="X+Y" Font="26" Clicked="handler_buttonAdditionClick" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
+					<Button x:Name="buttonSubstraction" Text="X-Y" Font="26" Grid.Column="2" Grid.Row="0" Clicked="handler_buttonSubstractionClick" Grid.ColumnSpan="2" />
+					<Button x:Name="buttonMult" Text="*" Font="26" Grid.Column="4" Grid.Row="0" Clicked="handler_buttonMultClick" Grid.ColumnSpan="2" />
 
+
+					<Button x:Name="buttonDivision" Text="X/Y" Font="26" Grid.Column="0" Grid.Row="0" Clicked="handler_buttonDivisionClick" Grid.ColumnSpan="2" />
+					<Button x:Name="buttonSqrtX" Text="[sqrt(X)]" Font="22" Grid.Column="2" Grid.Row="0" Clicked="handler_buttonSqrtXClick" Grid.ColumnSpan="2" />
+					<Button x:Name="buttonPowXY" Text="X^Y" Font="26" Grid.Column="4" Grid.Row="0" Clicked="handler_buttonPowXYClick" Grid.ColumnSpan="2" />
+
+			    	<Button x:Name="buttonInverseX" Text="1/X" Font="26"  Grid.Column="0" Grid.Row="0" Clicked="handler_buttonInverseXClick" Grid.ColumnSpan="3" />
+			    	<Button x:Name="buttonXModN" Text="X mod N" Font="26"  Grid.Column="3" Grid.Row="0" Clicked="handler_buttonXModNClick" Grid.ColumnSpan="3" />
+				</Grid>
 
 		    </StackLayout>
 	</ScrollView>

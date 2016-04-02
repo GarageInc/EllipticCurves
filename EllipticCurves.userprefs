@@ -1,8 +1,12 @@
 ﻿<Properties StartupItem="Droid\EllipticCurves.Droid.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.df9063a3" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="EllipticCurves\screens\Calculator.xaml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="EllipticCurves\screens\EllipticCurveInput.xaml">
     <Files>
-      <File FileName="EllipticCurves\screens\Calculator.xaml" Line="35" Column="38" />
+      <File FileName="EllipticCurves\screens\EllipticCurveInput.xaml.cs" Line="1" Column="1" />
+      <File FileName="EllipticCurves\screens\EllipticCurveInput.xaml" Line="91" Column="4" />
+      <File FileName="EllipticCurves\screens\Calculator.xaml" Line="1" Column="1" />
+      <File FileName="EllipticCurves\screens\StartPage.xaml" Line="1" Column="1" />
+      <File FileName="c:\Data\cross\EllipticCurves\EllipticCurves\obj\Debug\EllipticCurveInput.xaml.g.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
