@@ -32,12 +32,12 @@
 					<Button x:Name="buttonMult" Text="*" Font="26" Grid.Column="4" Grid.Row="0" Clicked="handler_buttonMultClick" Grid.ColumnSpan="2" />
 
 
-					<Button x:Name="buttonDivision" Text="X/Y" Font="26" Grid.Column="0" Grid.Row="0" Clicked="handler_buttonDivisionClick" Grid.ColumnSpan="2" />
-					<Button x:Name="buttonSqrtX" Text="[sqrt(X)]" Font="22" Grid.Column="2" Grid.Row="0" Clicked="handler_buttonSqrtXClick" Grid.ColumnSpan="2" />
-					<Button x:Name="buttonPowXY" Text="X^Y" Font="26" Grid.Column="4" Grid.Row="0" Clicked="handler_buttonPowXYClick" Grid.ColumnSpan="2" />
+					<Button x:Name="buttonDivision" Text="X/Y" Font="26" Grid.Column="0" Grid.Row="1" Clicked="handler_buttonDivisionClick" Grid.ColumnSpan="2" />
+			    	<Button x:Name="buttonInverseX" Text="1/X" Font="26"  Grid.Column="2" Grid.Row="1" Clicked="handler_buttonInverseXClick" Grid.ColumnSpan="2" />
+					<Button x:Name="buttonPowXY" Text="X^Y" Font="26" Grid.Column="4" Grid.Row="1" Clicked="handler_buttonPowXYClick" Grid.ColumnSpan="2" />
 
-			    	<Button x:Name="buttonInverseX" Text="1/X" Font="26"  Grid.Column="0" Grid.Row="0" Clicked="handler_buttonInverseXClick" Grid.ColumnSpan="3" />
-			    	<Button x:Name="buttonXModN" Text="X mod N" Font="26"  Grid.Column="3" Grid.Row="0" Clicked="handler_buttonXModNClick" Grid.ColumnSpan="3" />
+					<Button x:Name="buttonSqrtX" Text="[sqrt(X)]" Font="22" Grid.Column="0" Grid.Row="2" Clicked="handler_buttonSqrtXClick" Grid.ColumnSpan="3" />
+			    	<Button x:Name="buttonXModN" Text="X mod N" Font="26"  Grid.Column="3" Grid.Row="2" Clicked="handler_buttonXModNClick" Grid.ColumnSpan="3" />
 				</Grid>
 
 		    </StackLayout>

@@ -1,17 +1,81 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace EllipticCurves
 {
-	public class ECPoint
+	public class ECPoint:INotifyPropertyChanged
 	{
-		public BigInteger p;
+		protected BigInteger xx=0;
+		protected BigInteger yy=0;
 
-		public BigInteger x;
-		public BigInteger y;
+		protected BigInteger aa=0;
+		protected BigInteger bb=0;
+		protected BigInteger fieldchar=0;
 
-		public BigInteger a;
-		public BigInteger b;
-		public BigInteger FieldChar;
+		public BigInteger x
+		{
+			get { return xx; }
+			set
+			{
+				if (xx != value)
+				{
+					xx = value;
+					OnPropertyChanged("x");
+				}
+			}
+		}
+
+		public BigInteger y
+		{
+			get { return yy; }
+			set
+			{
+				if (yy != value)
+				{
+					yy = value;
+					OnPropertyChanged("y");
+				}
+			}
+		}
+
+		public BigInteger a
+		{
+			get { return aa; }
+			set
+			{
+				if (aa != value)
+				{
+					aa = value;
+					OnPropertyChanged("a");
+				}
+			}
+		}
+
+		public BigInteger b
+		{
+			get { return bb; }
+			set
+			{
+				if (bb != value)
+				{
+					bb = value;
+					OnPropertyChanged("b");
+				}
+			}
+		}
+
+		public BigInteger FieldChar
+		{
+			get { return fieldchar; }
+			set
+			{
+				if (fieldchar != value)
+				{
+					fieldchar = value;
+					OnPropertyChanged("FieldChar");
+				}
+			}
+		}
 
 		public ECPoint(ECPoint p)
 		{
@@ -22,6 +86,9 @@ namespace EllipticCurves
 			FieldChar = p.FieldChar;
 		}
 
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
 		public ECPoint()
 		{
 			x = new BigInteger();
@@ -29,6 +96,21 @@ namespace EllipticCurves
 			a = new BigInteger();
 			b = new BigInteger();
 			FieldChar = new BigInteger();
+		}
+
+		protected void allChanged(){
+
+			OnPropertyChanged("x");
+			OnPropertyChanged("y");
+			OnPropertyChanged("a");
+			OnPropertyChanged("b");
+			OnPropertyChanged("FieldChar");
+		}
+
+		protected void OnPropertyChanged(string propName)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged(this, new PropertyChangedEventArgs(propName));
 		}
 
 		//сложение двух точек P1 и P2

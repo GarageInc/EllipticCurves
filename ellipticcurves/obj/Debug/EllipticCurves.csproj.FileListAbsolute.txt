@@ -11,3 +11,4 @@ C:\Data\cross\EllipticCurves\EllipticCurves\obj\Debug\EllipticCurves.dll
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Debug\EllipticCurves.pdb
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Debug\EllipticCurves.csprojResolveAssemblyReference.cache
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Debug\EllipticCurveInput.xaml.g.cs
+C:\Data\cross\EllipticCurves\EllipticCurves\obj\Debug\Operations.xaml.g.cs

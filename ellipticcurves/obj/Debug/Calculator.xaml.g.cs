@@ -32,11 +32,11 @@ namespace EllipticCurves {
         
         private Button buttonDivision;
         
-        private Button buttonSqrtX;
+        private Button buttonInverseX;
         
         private Button buttonPowXY;
         
-        private Button buttonInverseX;
+        private Button buttonSqrtX;
         
         private Button buttonXModN;
         
@@ -50,9 +50,9 @@ namespace EllipticCurves {
             buttonSubstraction = this.FindByName<Button>("buttonSubstraction");
             buttonMult = this.FindByName<Button>("buttonMult");
             buttonDivision = this.FindByName<Button>("buttonDivision");
-            buttonSqrtX = this.FindByName<Button>("buttonSqrtX");
-            buttonPowXY = this.FindByName<Button>("buttonPowXY");
             buttonInverseX = this.FindByName<Button>("buttonInverseX");
+            buttonPowXY = this.FindByName<Button>("buttonPowXY");
+            buttonSqrtX = this.FindByName<Button>("buttonSqrtX");
             buttonXModN = this.FindByName<Button>("buttonXModN");
         }
     }

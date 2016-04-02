@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="EllipticCurves.Operations">
+
+	<ScrollView>
+		<StackLayout Padding="10, 10, 10, 10">
+
+		    <Label 
+		    	Text="{Binding a,b,FieldChar, StringFormat='E: Y^2=X^3+{0:F0}*X+{0:F0} (mod {0:F0})'}"
+		    	XAlign = "Center"
+				YAlign="Center"/>
+
+		    <Label 
+		    	Text="{Binding x,y, StringFormat='Генерирующая точка [{0:F0} ; {0:F0}])'}"
+		    	XAlign = "Center"
+				YAlign="Center"/>
+
+			<Button Text="Удвоить точку" x:Name="buttonDoubling" IsEnabled="true"
+				Clicked="handler_buttonDoublingClick"/>
+
+			<Frame OutlineColor="Green" x:Name="frameResult">
+				<StackLayout x:Name="stackResults">
+				</StackLayout>	
+			</Frame>
+
+			<Grid>
+			    <Grid.ColumnDefinitions>
+			      <ColumnDefinition Width="*" />
+			      <ColumnDefinition Width="*" />
+			      <ColumnDefinition Width="*" />
+			      <ColumnDefinition Width="*" />
+			      <ColumnDefinition Width="*" />
+			      <ColumnDefinition Width="*" />
+			      <ColumnDefinition Width="*" />
+			      <ColumnDefinition Width="*" />
+			      <ColumnDefinition Width="*" />
+			      <ColumnDefinition Width="*" />
+			      <ColumnDefinition Width="*" />
+			    </Grid.ColumnDefinitions>
+			    <Grid.RowDefinitions>
+			      <RowDefinition Height="*" />
+			      <RowDefinition Height="*" />
+			    </Grid.RowDefinitions>
+
+			    <Label Text="Вторая точка"  Grid.ColumnSpan="13" XAlign = "Center"	YAlign="Center" FontSize="22" TextColor="White"/>
+
+			    <Label Text="(" XAlign = "Center"	YAlign="Center" 
+			    	Grid.Row="1" Grid.Column="0"  />
+				<Entry x:Name="entryX" Keyboard="Numeric" Placeholder="x0" TextChanged="handler_changedXValidate"
+					Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="5" />
+
+			    <Label Text=";"  XAlign = "Center"	YAlign="Center" 
+			    	 Grid.Row="1" Grid.Column="6"/>
+				<Entry x:Name="entryY" Keyboard="Numeric" Placeholder="y0"  TextChanged="handler_changedYValidate"
+					 Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="5" />
+
+			    <Label Text=")" XAlign = "Center"	YAlign="Center"
+			    	  Grid.Row="1" Grid.Column="12" />
+			</Grid>
+
+
+			<Button Text="Сложить точки" x:Name="buttonAddition" IsEnabled="true"
+				Clicked="handler_buttonAdditionClick"/>
+
+		</StackLayout>
+	</ScrollView>
+</ContentPage>

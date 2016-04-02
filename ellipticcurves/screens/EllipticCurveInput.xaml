@@ -56,12 +56,12 @@
 
 			    <Label Text="(" XAlign = "Center"	YAlign="Center" 
 			    	Grid.Row="1" Grid.Column="0"  />
-				<Entry Keyboard="Numeric" Placeholder="x0" 
+				<Entry x:Name="entryX" Keyboard="Numeric" Placeholder="x0" TextChanged="handler_changedXValidate"
 					Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="5" />
 
 			    <Label Text=";"  XAlign = "Center"	YAlign="Center" 
 			    	 Grid.Row="1" Grid.Column="6"/>
-				<Entry Keyboard="Numeric" Placeholder="y0"  
+				<Entry x:Name="entryY" Keyboard="Numeric" Placeholder="y0"  TextChanged="handler_changedYValidate"
 					 Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="5" />
 
 			    <Label Text=")" XAlign = "Center"	YAlign="Center"
@@ -85,7 +85,7 @@
 					Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="7" />
 
 
-				<Button Text="Перейти к операциям" 
+				<Button Text="Перейти к операциям" x:Name="operationsButton" Clicked="handler_operationsButtonClick" IsEnabled="false"
 					Grid.Row="7" Grid.ColumnSpan="13"  />
 			</Grid>
 

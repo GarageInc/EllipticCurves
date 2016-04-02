@@ -14,22 +14,28 @@ namespace EllipticCurves {
     using Xamarin.Forms.Xaml;
     
     
-    public partial class StartPage : ContentPage {
+    public partial class Operations : ContentPage {
         
-        private Button calculatorButton;
+        private Button buttonDoubling;
         
-        private Button ellipticButton;
+        private Frame frameResult;
         
-        private Button examplesButton;
+        private StackLayout stackResults;
         
-        private Button moreButton;
+        private Entry entryX;
+        
+        private Entry entryY;
+        
+        private Button buttonAddition;
         
         private void InitializeComponent() {
-            this.LoadFromXaml(typeof(StartPage));
-            calculatorButton = this.FindByName<Button>("calculatorButton");
-            ellipticButton = this.FindByName<Button>("ellipticButton");
-            examplesButton = this.FindByName<Button>("examplesButton");
-            moreButton = this.FindByName<Button>("moreButton");
+            this.LoadFromXaml(typeof(Operations));
+            buttonDoubling = this.FindByName<Button>("buttonDoubling");
+            frameResult = this.FindByName<Frame>("frameResult");
+            stackResults = this.FindByName<StackLayout>("stackResults");
+            entryX = this.FindByName<Entry>("entryX");
+            entryY = this.FindByName<Entry>("entryY");
+            buttonAddition = this.FindByName<Button>("buttonAddition");
         }
     }
 }
