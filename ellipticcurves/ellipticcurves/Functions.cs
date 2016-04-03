@@ -55,6 +55,15 @@ namespace EllipticCurves
 
 			return 0;
 		}
+
+
+		public static string getPointtoString(ECPoint p){
+			string result = "";
+			result += "[ " + p.x + " ; " + p.y + " ]"; 
+
+			return result;
+		}
+
 	}
 }
 

@@ -69,6 +69,22 @@ namespace EllipticCurves
 			}
 		}
 
+
+		protected void addECtoFrame(ECPoint p){
+
+			string result = getEtoString (p);
+
+			stackResults.Children.Clear ();
+
+			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
+
+			result = Functions.getPointtoString (p);
+			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
+
+			frameResult.OutlineColor = Color.Green;
+
+		}
+
 		// HANDLERS
 
 		protected string getEtoString(ECPoint p){
@@ -81,13 +97,6 @@ namespace EllipticCurves
 				result += " + " + p.b.ToString ();
 
 			result += " (mod " + p.FieldChar +  ")";
-
-			return result;
-		}
-
-		protected string getPointtoString(ECPoint p){
-			string result = "";
-			result += "[ " + p.x + " ; " + p.y + " ]"; 
 
 			return result;
 		}
@@ -106,20 +115,6 @@ namespace EllipticCurves
 			}
 		}
 
-		public void addECtoFrame(ECPoint p){
-
-			string result = getEtoString (p);
-
-			stackResults.Children.Clear ();
-
-			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
-
-			result = getPointtoString (p);
-			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
-
-			frameResult.OutlineColor = Color.Green;
-
-		}
 
 		public void handler_changedYValidate(object sender, EventArgs e){
 			try{

@@ -16,9 +16,9 @@
 								XAlign = "Center"
 								YAlign="Center" Grid.Column="0" Grid.Row="0"/>	
 
-				      <Entry Keyboard="Numeric" x:Name="entryP" Placeholder="p =" TextChanged="handler_changedPValidate"  Grid.Column="0" Grid.Row="1"/>
-				      <Entry Keyboard="Numeric" x:Name="entryA" Placeholder="a =" TextChanged="handler_changedAValidate"  Grid.Column="0" Grid.Row="2"/>
-				      <Entry Keyboard="Numeric" x:Name="entryB" Placeholder="b =" TextChanged="handler_changedBValidate"  Grid.Column="0" Grid.Row="3"/>
+				      <Entry Keyboard="Numeric" x:Name="entryA" Placeholder="a =" TextChanged="handler_changedAValidate"  Grid.Column="0" Grid.Row="1"/>
+				      <Entry Keyboard="Numeric" x:Name="entryB" Placeholder="b =" TextChanged="handler_changedBValidate"  Grid.Column="0" Grid.Row="2"/>
+				      <Entry Keyboard="Numeric" x:Name="entryP" Placeholder="p =" TextChanged="handler_changedPValidate"  Grid.Column="0" Grid.Row="3"/>
 			</Grid>
 			        
 			<Frame OutlineColor="Green" x:Name="frameResult">
@@ -74,14 +74,18 @@
 			    <Label Text="Число точек" XAlign = "Center"	YAlign="Center" FontSize="22" TextColor="White"
 			    	Grid.Row="3" Grid.ColumnSpan="13" />
 				<Button Text="Вычислить" 
-					Grid.Row="4" Grid.ColumnSpan="13"  />
+					Grid.Row="4" Grid.ColumnSpan="13" IsEnabled="false"
+					x:Name="getCountButton"
+					Clicked="handler_getCountButtonClick" />
 
-			    <Label Text="Всего:"  XAlign = "Center"	YAlign="Center" FontSize="16"
+			    <Label Text="Всего:"
+			     	XAlign = "Center"	YAlign="Center" FontSize="16"
 			    	Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5" />
-				<Entry Keyboard="Numeric"  Placeholder="0" IsEnabled="false"
+				<Entry Keyboard="Numeric" x:Name="labelCountPoints"
+					Placeholder="0" IsEnabled="false"
 					Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="7"/>
 
-			    <Label Text="В подмножестве:"   XAlign = "Center"	YAlign="Center" FontSize="16"
+			    <Label Text="Порядок 'k':"   XAlign = "Center"	YAlign="Center" FontSize="16"
 			    	Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" />
 				<Entry Keyboard="Numeric"  Placeholder="0" IsEnabled="false"
 					Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="7" />

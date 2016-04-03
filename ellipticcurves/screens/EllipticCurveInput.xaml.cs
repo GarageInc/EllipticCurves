@@ -25,10 +25,7 @@ namespace EllipticCurves
 
 			point = new ECPoint ();
 
-			this.BindingContext = point;
-
-
-			operationsButton.IsEnabled = point.validatedAll;
+			// operationsButton.IsEnabled = point.validatedAll;
 		}
 
 
@@ -60,6 +57,8 @@ namespace EllipticCurves
 			}
 
 			operationsButton.IsEnabled = point.validatedAll && !isError;
+
+			getCountButton.IsEnabled = point.validatedCoefs && !isError;
 			genRandomPointButton.IsEnabled = point.validatedCoefs && !isError;
 
 			if (isError) {
@@ -67,6 +66,8 @@ namespace EllipticCurves
 			} else {
 				frameResult.OutlineColor = Color.Green;
 			}
+
+			labelCountPoints.Text = "";
 		}
 
 		// HANDLERS
@@ -172,15 +173,43 @@ namespace EllipticCurves
 		BigInteger startGen = 0;
 		private void handler_genRandomPointButtonClick(object sender, EventArgs e)
 		{
-			BigInteger y = ((startGen * startGen * startGen + startGen * point.a + point.b)  ).sqrt() % point.FieldChar;
+			l1:
+			BigInteger y = ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar ).sqrt();
 
-			System.Diagnostics.Debug.WriteLine ((startGen * startGen * startGen + startGen * point.a + point.b).ToString ());
+			if (y * y % point.FieldChar == ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar)) {
 
-			entryX.Text = startGen.ToString();
-			entryY.Text = y.ToString();
+				entryX.Text = startGen.ToString ();
+				entryY.Text = y.ToString ();
 
-			startGen++;
-			startGen = startGen % point.FieldChar;
+				startGen++;
+				startGen = startGen % point.FieldChar;
+			} else {
+
+				startGen++;
+				startGen = startGen % point.FieldChar;
+				goto l1;
+			}
+		}
+
+		private void handler_getCountButtonClick(object sender, EventArgs e)
+		{
+			int count = 0;
+
+			stackResults.Children.Clear ();
+
+			string result = "";
+
+			for (int i = 1; i <= 31; i++) {
+				ECPoint p = ECPoint.multiply (i, point);
+
+				result += Functions.getPointtoString (p) + " ";
+
+				count++;
+			}
+
+			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
+
+			labelCountPoints.Text = count.ToString();
 		}
 
 		private void handler_operationsButtonClick(object sender, EventArgs e)
