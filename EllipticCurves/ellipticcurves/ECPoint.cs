@@ -98,6 +98,18 @@ namespace EllipticCurves
 			FieldChar = new BigInteger();
 		}
 
+		public bool  validatedAll{
+			get {
+				return b != 0 && a != 0 && (x != 0 || y != 0) && FieldChar != 0;
+			}
+		}
+
+		public bool  validatedCoefs{
+			get {
+				return b != 0 && a != 0 && FieldChar != 0;
+			}
+		}
+
 		protected void allChanged(){
 
 			OnPropertyChanged("x");

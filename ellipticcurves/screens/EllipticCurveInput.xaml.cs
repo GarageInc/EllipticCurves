@@ -26,6 +26,9 @@ namespace EllipticCurves
 			point = new ECPoint ();
 
 			this.BindingContext = point;
+
+
+			operationsButton.IsEnabled = point.validatedAll;
 		}
 
 
@@ -56,16 +59,44 @@ namespace EllipticCurves
 				isError = true;
 			}
 
+			operationsButton.IsEnabled = point.validatedAll && !isError;
+			genRandomPointButton.IsEnabled = point.validatedCoefs && !isError;
+
 			if (isError) {
-				frameResult.OutlineColor = Color.Red;		
-				operationsButton.IsEnabled = false;
+				frameResult.OutlineColor = Color.Red;
 			} else {
 				frameResult.OutlineColor = Color.Green;
-				operationsButton.IsEnabled = true;
 			}
 		}
 
 		// HANDLERS
+
+
+		public void invalidateGenPoint(){
+			if (point.FieldChar != 0) {
+
+				if (point.y * point.y == ((point.x * point.x * point.x + point.x * point.a + point.b) % point.FieldChar)) {
+
+					stackResults.Children.Add (new Label {
+						TextColor = Color.Green,
+						Text = "Точка принадлежит прямой.",
+						VerticalOptions = LayoutOptions.StartAndExpand
+					});	
+					operationsButton.IsEnabled = false;
+				} else {
+
+					stackResults.Children.Add (new Label {
+						TextColor = Color.Red,
+						Text = "Точка не принадлежит прямой!",
+						VerticalOptions = LayoutOptions.StartAndExpand
+					});	
+					operationsButton.IsEnabled = false;
+				}
+			} else {
+				
+				operationsButton.IsEnabled = false;
+			}
+		}
 
 		public void handler_changedPValidate(object sender, EventArgs e){
 			try{
@@ -119,6 +150,7 @@ namespace EllipticCurves
 				errorX = "Неверное значение 'x' = " + entryX.Text;
 			} finally{
 				invalidateErrors();
+				invalidateGenPoint ();
 			}
 		}
 
@@ -133,7 +165,22 @@ namespace EllipticCurves
 				errorY = "Неверное значение 'y' = " + entryY.Text;
 			} finally{
 				invalidateErrors();
+				invalidateGenPoint ();
 			}
+		}
+
+		BigInteger startGen = 0;
+		private void handler_genRandomPointButtonClick(object sender, EventArgs e)
+		{
+			BigInteger y = ((startGen * startGen * startGen + startGen * point.a + point.b)  ).sqrt() % point.FieldChar;
+
+			System.Diagnostics.Debug.WriteLine ((startGen * startGen * startGen + startGen * point.a + point.b).ToString ());
+
+			entryX.Text = startGen.ToString();
+			entryY.Text = y.ToString();
+
+			startGen++;
+			startGen = startGen % point.FieldChar;
 		}
 
 		private void handler_operationsButtonClick(object sender, EventArgs e)

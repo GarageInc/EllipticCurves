@@ -67,7 +67,9 @@
 			    <Label Text=")" XAlign = "Center"	YAlign="Center"
 			    	  Grid.Row="1" Grid.Column="12" />
 
-				<Button Text="Случайная точка" Grid.Row="2" Grid.ColumnSpan="13"  />
+				<Button Text="Случайная точка" Grid.Row="2" Grid.ColumnSpan="13" IsEnabled="false" 
+					x:Name="genRandomPointButton"
+					Clicked="handler_genRandomPointButtonClick" />
 
 			    <Label Text="Число точек" XAlign = "Center"	YAlign="Center" FontSize="22" TextColor="White"
 			    	Grid.Row="3" Grid.ColumnSpan="13" />
@@ -85,8 +87,8 @@
 					Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="7" />
 
 
-				<Button Text="Перейти к операциям" x:Name="operationsButton" Clicked="handler_operationsButtonClick" IsEnabled="false"
-					Grid.Row="7" Grid.ColumnSpan="13"  />
+				<Button Text="Перейти к операциям" x:Name="operationsButton" Clicked="handler_operationsButtonClick" 
+					Grid.Row="7" Grid.ColumnSpan="13" IsEnabled="false" />
 			</Grid>
 
 		</StackLayout>

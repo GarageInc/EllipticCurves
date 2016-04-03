@@ -11,9 +11,11 @@ namespace EllipticCurves
 
 		ECPoint point;
 		ECPoint additionPoint;
+		BigInteger z;
 
 		string errorX="";
 		string errorY="";
+		string errorZ="";
 
 		public Operations (StartPage page, ECPoint param)
 		{
@@ -51,6 +53,10 @@ namespace EllipticCurves
 			}
 			if (errorY != "") {
 				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorY,VerticalOptions=LayoutOptions.StartAndExpand });	
+				isError = true;
+			}
+			if (errorZ != "") {
+				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorZ,VerticalOptions=LayoutOptions.StartAndExpand });	
 				isError = true;
 			}
 
@@ -129,15 +135,43 @@ namespace EllipticCurves
 			}
 		}
 
+		public void handler_changedZValidate(object sender, EventArgs e){
+			try{
+				Entry current = sender as Entry;
+				if ( current.Text != null && current.Text != ""){
+					z = new BigInteger(entryY.Text, 10);
+				}
+				errorZ = "";
+				buttonMult.IsEnabled = true;
+			} catch{
+				errorZ = "Неверное значение 'z' = " + entryZ.Text;
+				buttonMult.IsEnabled = false;
+			} finally{
+				invalidateErrors();
+			}
+		}
+
 		protected void handler_buttonDoublingClick(object sender, EventArgs e)
 		{
 			ECPoint doubling = ECPoint.Double (point);
+
+			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = "Удвоение:", VerticalOptions=LayoutOptions.StartAndExpand });
 			addECtoFrame (doubling);
 		}
 
 		protected void handler_buttonAdditionClick(object sender, EventArgs e)
 		{
 			var resultPoint = point + additionPoint;
+
+			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = "Сложение точек:", VerticalOptions=LayoutOptions.StartAndExpand });
+			addECtoFrame (resultPoint);
+		}
+
+		protected void handler_buttonMultClick(object sender, EventArgs e)
+		{
+			var resultPoint = ECPoint.multiply(z,point);
+
+			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = "Умножение на число:", VerticalOptions=LayoutOptions.StartAndExpand });
 			addECtoFrame (resultPoint);
 		}
 	}

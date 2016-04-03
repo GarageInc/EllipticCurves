@@ -23,6 +23,11 @@
 				</StackLayout>	
 			</Frame>
 
+			<Entry Keyboard="Numeric" x:Name="entryZ" Placeholder="z = " TextChanged="handler_changedZValidate"/>
+
+			<Button Text="Помножить точку на число" x:Name="buttonMult" IsEnabled="false"
+				Clicked="handler_buttonMultClick"/>
+
 			<Grid>
 			    <Grid.ColumnDefinitions>
 			      <ColumnDefinition Width="*" />
