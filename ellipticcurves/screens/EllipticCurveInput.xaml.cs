@@ -70,6 +70,25 @@ namespace EllipticCurves
 			labelCountPoints.Text = "";
 		}
 
+		public BigInteger getRandomPointCoord_y(){
+			l1:
+			BigInteger y = ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar ).sqrt();
+
+			if (y * y % point.FieldChar == ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar)) {
+				
+
+				startGen++;
+				startGen = startGen % point.FieldChar;
+
+				return y;
+			} else {
+
+				startGen++;
+				startGen = startGen % point.FieldChar;
+				goto l1;
+			}
+		}
+
 		// HANDLERS
 
 
@@ -173,43 +192,43 @@ namespace EllipticCurves
 		BigInteger startGen = 0;
 		private void handler_genRandomPointButtonClick(object sender, EventArgs e)
 		{
-			l1:
-			BigInteger y = ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar ).sqrt();
-
-			if (y * y % point.FieldChar == ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar)) {
-
-				entryX.Text = startGen.ToString ();
-				entryY.Text = y.ToString ();
-
-				startGen++;
-				startGen = startGen % point.FieldChar;
-			} else {
-
-				startGen++;
-				startGen = startGen % point.FieldChar;
-				goto l1;
-			}
+			entryY.Text = getRandomPointCoord_y().ToString ();
+			entryX.Text = (startGen-1).ToString ();
 		}
+
+		public List<ECPoint> points = new List<ECPoint>();
 
 		private void handler_getCountButtonClick(object sender, EventArgs e)
 		{
-			int count = 0;
+			points.Clear ();
 
 			stackResults.Children.Clear ();
 
 			string result = "";
 
-			for (int i = 1; i <= 31; i++) {
-				ECPoint p = ECPoint.multiply (i, point);
+			int i = 1;
 
+			point.y = getRandomPointCoord_y ();
+			point.x = startGen-1;
+
+			entryX.Text = point.x.ToString ();
+			entryY.Text = point.y.ToString ();
+
+			ECPoint p = ECPoint.multiply (i, point);
+
+			while( !points.Contains (p) ) {
+
+				points.Add (p);
 				result += Functions.getPointtoString (p) + " ";
 
-				count++;
+				i++;
+				p = ECPoint.multiply (i, point);
 			}
 
 			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
 
-			labelCountPoints.Text = count.ToString();
+			labelCountPoints.Text = points.Count.ToString();
+			labelOrderK.Text = i.ToString ();
 		}
 
 		private void handler_operationsButtonClick(object sender, EventArgs e)

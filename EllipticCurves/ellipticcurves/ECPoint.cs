@@ -153,6 +153,11 @@ namespace EllipticCurves
 			return p3;
 		}
 
+		public static bool isEqualCoords(ECPoint p1, ECPoint p2)
+		{			
+			return p1.x==p2.x && p1.y==p2.y;
+		}
+
 		// сложение точки P c собой же
 		public static ECPoint Double(ECPoint p)
 		{

@@ -85,13 +85,14 @@
 					Placeholder="0" IsEnabled="false"
 					Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="7"/>
 
-			    <Label Text="Порядок 'k':"   XAlign = "Center"	YAlign="Center" FontSize="16"
+			    <Label Text="Порядок 'k':" x:Name="labelOrderK"
+			        XAlign = "Center"	YAlign="Center" FontSize="16"
 			    	Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" />
 				<Entry Keyboard="Numeric"  Placeholder="0" IsEnabled="false"
 					Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="7" />
 
 
-				<Button Text="Перейти к операциям" x:Name="operationsButton" Clicked="handler_operationsButtonClick" 
+				<Button Text="Операции с выбранной точкой" x:Name="operationsButton" Clicked="handler_operationsButtonClick" 
 					Grid.Row="7" Grid.ColumnSpan="13" IsEnabled="false" />
 			</Grid>
 
