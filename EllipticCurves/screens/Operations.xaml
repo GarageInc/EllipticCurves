@@ -25,7 +25,7 @@
 
 			<Entry Keyboard="Numeric" x:Name="entryZ" Placeholder="z = " TextChanged="handler_changedZValidate"/>
 
-			<Button Text="Помножить точку на число" x:Name="buttonMult" IsEnabled="false"
+			<Button Text="Помножить точку на число" x:Name="buttonMult" IsEnabled="true"
 				Clicked="handler_buttonMultClick"/>
 
 			<Grid>
@@ -67,6 +67,9 @@
 			<Button Text="Сложить точки" x:Name="buttonAddition" IsEnabled="true"
 				Clicked="handler_buttonAdditionClick"/>
 
+
+			<Button Text="Перейти к криптографии" IsEnabled="true"
+				Clicked="handler_buttonCryptoClick"/>
 		</StackLayout>
 	</ScrollView>
 </ContentPage>

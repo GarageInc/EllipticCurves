@@ -12,14 +12,19 @@ namespace EllipticCurves
 			InitializeComponent ();
 		}
 
-		private void handler_calculatorButtonClick(object sender, EventArgs e)
+		protected void handler_calculatorButtonClick(object sender, EventArgs e)
 		{
 			this.Navigation.PushAsync(new Calculator(this));
 		}
 
-		private void handler_ellipticButtonClick(object sender, EventArgs e)
+		protected void handler_ellipticButtonClick(object sender, EventArgs e)
 		{
 			this.Navigation.PushAsync(new EllipticCurveInput(this));
+		}
+
+		protected void handler_buttonCryptoClick(object sender, EventArgs e)
+		{
+			this.Navigation.PushAsync(new CryptoExamples(this));
 		}
 	}
 }

@@ -33,12 +33,13 @@ namespace EllipticCurves
 				point = new ECPoint ();
 			}
 
-
 			additionPoint.a = point.a;
 			additionPoint.b = point.b;
 			additionPoint.FieldChar = point.FieldChar;
 
 			this.BindingContext = point;
+
+			buttonMult.IsEnabled = false;
 		}
 
 
@@ -76,13 +77,12 @@ namespace EllipticCurves
 
 			stackResults.Children.Clear ();
 
-			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
+			// stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
 
 			result = Functions.getPointtoString (p);
 			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
 
 			frameResult.OutlineColor = Color.Green;
-
 		}
 
 		// HANDLERS
@@ -108,7 +108,9 @@ namespace EllipticCurves
 					additionPoint.x = new BigInteger(entryX.Text, 10);
 				}
 				errorX = "";
+				buttonAddition.IsEnabled = true;
 			} catch{
+				buttonAddition.IsEnabled = false;
 				errorX = "Неверное значение 'x' = " + entryX.Text;
 			} finally{
 				invalidateErrors();
@@ -123,7 +125,9 @@ namespace EllipticCurves
 					additionPoint.y = new BigInteger(entryY.Text, 10);
 				}
 				errorY = "";
+				buttonAddition.IsEnabled = true;
 			} catch{
+				buttonAddition.IsEnabled = false;
 				errorY = "Неверное значение 'y' = " + entryY.Text;
 			} finally{
 				invalidateErrors();
@@ -134,8 +138,13 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					z = new BigInteger(entryY.Text, 10);
+					z = new BigInteger(entryZ.Text, 10);
 				}
+
+				if( z== 0){
+					throw Exception("not valid");
+				}
+
 				errorZ = "";
 				buttonMult.IsEnabled = true;
 			} catch{
@@ -169,6 +178,13 @@ namespace EllipticCurves
 			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = "Умножение на число:", VerticalOptions=LayoutOptions.StartAndExpand });
 			addECtoFrame (resultPoint);
 		}
+
+
+		private void handler_buttonCryptoClick(object sender, EventArgs e)
+		{
+			this.Navigation.PushAsync(new CryptoExamples(parent, point));
+		}
+
 	}
 }
 

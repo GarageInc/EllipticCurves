@@ -74,12 +74,9 @@ namespace EllipticCurves
 			l1:
 			BigInteger y = ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar ).sqrt();
 
-			if (y * y % point.FieldChar == ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar)) {
+			if (((y * y) % point.FieldChar) == ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar)) {
 				
-
-				startGen++;
-				startGen = startGen % point.FieldChar;
-
+				startGen = (startGen+1) % point.FieldChar;
 				return y;
 			} else {
 
@@ -95,14 +92,14 @@ namespace EllipticCurves
 		public void invalidateGenPoint(){
 			if (point.FieldChar != 0) {
 
-				if (point.y * point.y == ((point.x * point.x * point.x + point.x * point.a + point.b) % point.FieldChar)) {
+				if (((point.y * point.y) % point.FieldChar) == ((point.x * point.x * point.x + point.x * point.a + point.b) % point.FieldChar)) {
 
 					stackResults.Children.Add (new Label {
 						TextColor = Color.Green,
 						Text = "Точка принадлежит прямой.",
 						VerticalOptions = LayoutOptions.StartAndExpand
 					});	
-					operationsButton.IsEnabled = false;
+					operationsButton.IsEnabled = true;
 				} else {
 
 					stackResults.Children.Add (new Label {
@@ -192,8 +189,15 @@ namespace EllipticCurves
 		BigInteger startGen = 0;
 		private void handler_genRandomPointButtonClick(object sender, EventArgs e)
 		{
-			entryY.Text = getRandomPointCoord_y().ToString ();
-			entryX.Text = (startGen-1).ToString ();
+			setPoint ();
+		}
+
+		public void setPoint(){
+			point.y = getRandomPointCoord_y ();
+			point.x = startGen - 1;
+
+			entryX.Text = point.x.ToString ();
+			entryY.Text = point.y.ToString ();
 		}
 
 		public List<ECPoint> points = new List<ECPoint>();
@@ -202,38 +206,58 @@ namespace EllipticCurves
 		{
 			points.Clear ();
 
-			stackResults.Children.Clear ();
 
 			string result = "";
 
-			int i = 1;
+			int i = 2;
 
-			point.y = getRandomPointCoord_y ();
-			point.x = startGen-1;
+			startGen = 0;
+			setPoint ();
 
-			entryX.Text = point.x.ToString ();
-			entryY.Text = point.y.ToString ();
+			ECPoint p = new ECPoint(point);
 
-			ECPoint p = ECPoint.multiply (i, point);
+			while( !isFirst(points,p) ) {
 
-			while( !points.Contains (p) ) {
+				if (!Contains (points, p)) {
+					points.Add (p);
+					result += Functions.getPointtoString (p) + " ";
+				}// pass
 
-				points.Add (p);
-				result += Functions.getPointtoString (p) + " ";
-
-				i++;
 				p = ECPoint.multiply (i, point);
+				i++;
 			}
 
+			stackResults.Children.Clear ();
 			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
 
-			labelCountPoints.Text = points.Count.ToString();
-			labelOrderK.Text = i.ToString ();
+			labelCountPoints.Text = points.Count.ToString() + " + 1 бесконечная";
 		}
 
 		private void handler_operationsButtonClick(object sender, EventArgs e)
 		{
 			this.Navigation.PushAsync(new Operations(parent, point));
+		}
+
+		public bool isFirst(List<ECPoint> list, ECPoint p){
+			if (list.Count > 0) {
+				if ((points [0].x == p.x && points [0].y == p.y)) {
+					return true;
+				}
+				return false;
+			} else {
+				return false;
+			}
+		}
+
+		public bool Contains(List<ECPoint> list, ECPoint p){
+		
+			for (int i = 0; i < list.Count; i++) {
+				if (list [i].x == p.x && list [i].y == p.y) {
+					return true;
+				}// pass
+			}
+
+			return false;
 		}
 	}
 }
