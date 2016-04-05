@@ -7,18 +7,35 @@ namespace EllipticCurves
 	{
 		protected EC elliptic_curve;
 
-		protected BigInteger aa=0;
-		protected BigInteger bb=0;
-		protected BigInteger fieldchar=0;
+		protected BigInteger xx {get;set;}
+		protected BigInteger yy {get;set;}
+
+
+
+		public ECPoint(ECPoint p)
+		{
+			elliptic_curve = p.elliptic_curve;
+
+			x = p.x;
+			y = p.y;
+		}
+
+		public ECPoint(EC curve)
+		{
+			elliptic_curve = curve;
+
+			y = new BigInteger();
+			x = new BigInteger();
+		}
 
 		public BigInteger x
 		{
-			get { return elliptic_curve.x; }
+			get { return x; }
 			set
 			{
-				if (elliptic_curve.x != value)
+				if (xx != value)
 				{
-					elliptic_curve.x = value;
+					xx = value;
 					OnPropertyChanged("x");
 				}
 			}
@@ -26,12 +43,12 @@ namespace EllipticCurves
 
 		public BigInteger y
 		{
-			get { return elliptic_curve.y; }
+			get { return y; }
 			set
 			{
-				if (elliptic_curve.y != value)
+				if (yy != value)
 				{
-					elliptic_curve.y = value;
+					yy = value;
 					OnPropertyChanged("y");
 				}
 			}
@@ -39,12 +56,12 @@ namespace EllipticCurves
 
 		public BigInteger a
 		{
-			get { return aa; }
+			get { return elliptic_curve.a; }
 			set
 			{
-				if (aa != value)
+				if (elliptic_curve.a != value)
 				{
-					aa = value;
+					elliptic_curve.a = value;
 					OnPropertyChanged("a");
 				}
 			}
@@ -52,12 +69,12 @@ namespace EllipticCurves
 
 		public BigInteger b
 		{
-			get { return bb; }
+			get { return elliptic_curve.b; }
 			set
 			{
-				if (bb != value)
+				if (elliptic_curve.b != value)
 				{
-					bb = value;
+					elliptic_curve.b = value;
 					OnPropertyChanged("b");
 				}
 			}
@@ -65,37 +82,19 @@ namespace EllipticCurves
 
 		public BigInteger p
 		{
-			get { return fieldchar; }
+			get { return elliptic_curve.p; }
 			set
 			{
-				if (fieldchar != value)
+				if (elliptic_curve.p != value)
 				{
-					fieldchar = value;
-					OnPropertyChanged("FieldChar");
+					elliptic_curve.p = value;
+					OnPropertyChanged("p");
 				}
 			}
 		}
 
-		public ECPoint(ECPoint p)
-		{
-			x = p.x;
-			y = p.y;
-			a = p.a;
-			b = p.b;
-			p = p.p;
-		}
-
-
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public ECPoint()
-		{
-			x = new BigInteger();
-			y = new BigInteger();
-			a = new BigInteger();
-			b = new BigInteger();
-			p = new BigInteger();
-		}
 
 		public bool  validatedAll{
 			get {
@@ -133,7 +132,7 @@ namespace EllipticCurves
 			OnPropertyChanged("y");
 			OnPropertyChanged("a");
 			OnPropertyChanged("b");
-			OnPropertyChanged("FieldChar");
+			OnPropertyChanged("p");
 		}
 
 		protected void OnPropertyChanged(string propName)

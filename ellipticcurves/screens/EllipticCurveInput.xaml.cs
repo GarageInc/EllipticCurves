@@ -9,7 +9,7 @@ namespace EllipticCurves
 	{
 		StartPage parent;
 
-		ECPoint current_point;
+		EC curve;
 
 		List<string> errors = new List<string> ();
 
@@ -19,7 +19,9 @@ namespace EllipticCurves
 
 			parent = page;
 
-			current_point = new ECPoint ();
+			curve = new EC ();
+
+			invalidateErrors ();
 		}
 
 		protected void trace(string message, Color color){
@@ -46,30 +48,16 @@ namespace EllipticCurves
 
 			operationsButton.IsEnabled = current_point.validatedAll && !isError;
 
-			getCountButton.IsEnabled = current_point.validatedCoefs && !isError;
-			genRandomPointButton.IsEnabled = current_point.validatedCoefs && !isError;
+			getCountButton.IsEnabled = curve.generation_point.isBelongToCurve() && !isError;
+			genRandomPointButton.IsEnabled = curve.generation_point.isBelongToCurve() && !isError;
 
 			labelCountPoints.Text = "";
 		}
 
-		public BigInteger getRandomPointCoord_y(){
-			l1:
-			BigInteger y = ((startGen * startGen * startGen + startGen * current_point.a + current_point.b) % current_point.p ).sqrt();
 
-			if (((y * y) % current_point.p) == ((startGen * startGen * startGen + startGen * current_point.a + current_point.b) % current_point.p)) {
-				
-				startGen = (startGen+1) % current_point.p;
-				return y;
-			} else {
-
-				startGen++;
-				startGen = startGen % current_point.p;
-				goto l1;
-			}
-		}
 
 		public void invalidateGenPoint(){
-			if (current_point.isBelongToCurve()) {
+			if (curve.generation_point.isBelongToCurve()) {
 
 				trace("Точка принадлежит прямой", Color.Green)
 				operationsButton.IsEnabled = true;
@@ -88,7 +76,7 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					current_point.p = new BigInteger(entryP.Text, 10);
+					curve.p = new BigInteger(entryP.Text, 10);
 				}
 			} catch{
 				errors.Add("Неверное значение 'p' = " + entryP.Text);
@@ -101,7 +89,7 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					current_point.a = new BigInteger(entryA.Text, 10);
+					curve.a = new BigInteger(entryA.Text, 10);
 				}
 			} catch{
 				errors.Add("Неверное значение 'a' = " + entryA.Text);
@@ -114,7 +102,7 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					current_point.b = new BigInteger(entryB.Text, 10);
+					curve.b = new BigInteger(entryB.Text, 10);
 				}
 			} catch{
 				errors.Add("Неверное значение 'b' = " + entryB.Text);
@@ -127,7 +115,7 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					current_point.x = new BigInteger(entryX.Text, 10);
+					curve.generation_point.x = new BigInteger(entryX.Text, 10);
 				}
 			} catch{
 				errors.Add("Неверное значение 'x' = " + entryX.Text);
@@ -141,7 +129,7 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					current_point.y = new BigInteger(entryY.Text, 10);
+					curve.generation_point.y = new BigInteger(entryY.Text, 10);
 				}
 			} catch{
 				errors.Add("Неверное значение 'y' = " + entryY.Text);
@@ -151,80 +139,39 @@ namespace EllipticCurves
 			}
 		}
 
-		BigInteger startGen = 0;
 		private void handler_genRandomPointButtonClick(object sender, EventArgs e)
 		{
 			setPoint ();
 		}
 
 		public void setPoint(){
-			current_point.y = getRandomPointCoord_y ();
-			current_point.x = startGen - 1;
 
-			entryX.Text = current_point.x.ToString ();
-			entryY.Text = current_point.y.ToString ();
+			ECPoint result = curve.createRandomGeneretingPoint ();
+
+			entryX.Text = result.x.ToString ();
+			entryY.Text = result.y.ToString ();
 		}
-
-		public List<ECPoint> points = new List<ECPoint>();
 
 		private void handler_getCountButtonClick(object sender, EventArgs e)
 		{
-			points.Clear ();
-
+			List<ECPoint> points = curve.getAllPoints ();
 
 			string result = "";
 
-			int i = 2;
-
-			startGen = 0;
-			setPoint ();
-
-			ECPoint p = new ECPoint(current_point);
-
-			while( !isFirst(points,p) ) {
-
-				if (!Contains (points, p)) {
-					points.Add (p);
-					result += Functions.getPointtoString (p) + " ";
-				}// pass
-
-				p = ECPoint.multiply (i, current_point);
-				i++;
+			foreach(var p in points){
+				result += Functions.getPointtoString (p) + " ";
 			}
 
 			stackResults.Children.Clear ();
 			trace (result, Color.Green);
 
-			labelCountPoints.Text = points.Count.ToString() + " + 1 бесконечная";
+			labelCountPoints.Text = curve.count_points.ToString() + "( 1 бесконечная )";
 		}
-
-
-		public bool isFirst(List<ECPoint> list, ECPoint p){
-			if (list.Count > 0) {
-				if ((points [0].x == p.x && points [0].y == p.y)) {
-					return true;
-				}
-				return false;
-			} else {
-				return false;
-			}
-		}
-
-		public bool Contains(List<ECPoint> list, ECPoint p){
-		
-			for (int i = 0; i < list.Count; i++) {
-				if (list [i].x == p.x && list [i].y == p.y) {
-					return true;
-				}// pass
-			}
-
-			return false;
-		}
-
+			
 
 		private void handler_operationsButtonClick(object sender, EventArgs e)
 		{
-			this.Navigation.PushAsync(new Operations(parent, current_point));
+			this.Navigation.PushAsync(new Operations(parent, curve.generation_point));
 		}
 	}
 }
