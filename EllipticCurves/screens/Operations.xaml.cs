@@ -35,7 +35,7 @@ namespace EllipticCurves
 
 			additionPoint.a = point.a;
 			additionPoint.b = point.b;
-			additionPoint.FieldChar = point.FieldChar;
+			additionPoint.p = point.p;
 
 			this.BindingContext = point;
 
@@ -96,7 +96,7 @@ namespace EllipticCurves
 			if (p.b != 0)
 				result += " + " + p.b.ToString ();
 
-			result += " (mod " + p.FieldChar +  ")";
+			result += " (mod " + p.p +  ")";
 
 			return result;
 		}

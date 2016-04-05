@@ -57,7 +57,7 @@ namespace EllipticCurves
 			ECPoint G = new ECPoint();
 			G.a = a;
 			G.b = b;
-			G.FieldChar = p;
+			G.p = p;
 			G.x = Xcord;
 			G.y = Ycord;
 			this.G = G;
