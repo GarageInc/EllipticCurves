@@ -125,6 +125,10 @@ namespace EllipticCurves
 			}
 		}
 
+		public static bool isEqualCoords(ECPoint p1, ECPoint p2)
+		{			
+			return p1.x==p2.x && p1.y==p2.y;
+		}
 
 		protected void allChanged(){
 
@@ -140,6 +144,7 @@ namespace EllipticCurves
 			if (PropertyChanged != null)
 				PropertyChanged(this, new PropertyChangedEventArgs(propName));
 		}
+
 
 
 
@@ -164,20 +169,19 @@ namespace EllipticCurves
 				dy += p1.p;
 
 			BigInteger m = (dy * dx.modInverse(p1.p)) % p1.p;
+
 			if (m < 0)
 				m += p1.p;
+			
 			p3.x = (m * m - p1.x - p2.x) % p1.p;
 			p3.y = (m * (p1.x - p3.x) - p1.y) % p1.p;
+
 			if (p3.x < 0)
 				p3.x += p1.p;
 			if (p3.y < 0)
 				p3.y += p1.p;
+			
 			return p3;
-		}
-
-		public static bool isEqualCoords(ECPoint p1, ECPoint p2)
-		{			
-			return p1.x==p2.x && p1.y==p2.y;
 		}
 
 		// сложение точки P c собой же
