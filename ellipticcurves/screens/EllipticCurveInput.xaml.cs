@@ -94,6 +94,7 @@ namespace EllipticCurves
 
 				if (((point.y * point.y) % point.FieldChar) == ((point.x * point.x * point.x + point.x * point.a + point.b) % point.FieldChar)) {
 
+					frameResult.OutlineColor = Color.Green;
 					stackResults.Children.Add (new Label {
 						TextColor = Color.Green,
 						Text = "Точка принадлежит прямой.",
@@ -102,6 +103,7 @@ namespace EllipticCurves
 					operationsButton.IsEnabled = true;
 				} else {
 
+					frameResult.OutlineColor = Color.Red;
 					stackResults.Children.Add (new Label {
 						TextColor = Color.Red,
 						Text = "Точка не принадлежит прямой!",
@@ -186,12 +188,12 @@ namespace EllipticCurves
 			}
 		}
 
-		BigInteger startGen = 0;
 		private void handler_genRandomPointButtonClick(object sender, EventArgs e)
 		{
 			setPoint ();
 		}
 
+		BigInteger startGen = 0;
 		public void setPoint(){
 			point.y = getRandomPointCoord_y ();
 			point.x = startGen - 1;
@@ -206,7 +208,6 @@ namespace EllipticCurves
 		{
 			points.Clear ();
 
-
 			string result = "";
 
 			int i = 2;
@@ -216,9 +217,9 @@ namespace EllipticCurves
 
 			ECPoint p = new ECPoint(point);
 
-			while( !isFirst(points,p) ) {
+			while( !Functions.isFirst(points,p) ) {
 
-				if (!Contains (points, p)) {
+				if (!Functions.Contains (points, p)) {
 					points.Add (p);
 					result += Functions.getPointtoString (p) + " ";
 				}// pass
@@ -238,27 +239,6 @@ namespace EllipticCurves
 			this.Navigation.PushAsync(new Operations(parent, point));
 		}
 
-		public bool isFirst(List<ECPoint> list, ECPoint p){
-			if (list.Count > 0) {
-				if ((points [0].x == p.x && points [0].y == p.y)) {
-					return true;
-				}
-				return false;
-			} else {
-				return false;
-			}
-		}
-
-		public bool Contains(List<ECPoint> list, ECPoint p){
-		
-			for (int i = 0; i < list.Count; i++) {
-				if (list [i].x == p.x && list [i].y == p.y) {
-					return true;
-				}// pass
-			}
-
-			return false;
-		}
 	}
 }
 

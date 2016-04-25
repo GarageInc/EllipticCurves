@@ -5,13 +5,11 @@
 	<ScrollView>
 		<StackLayout Padding="10, 10, 10, 10">
 
-		    <Label 
-		    	Text="{Binding a,b,FieldChar, StringFormat='E: Y^2=X^3+{0:F0}*X+{0:F0} (mod {0:F0})'}"
+		    <Label x:Name="labelEC"
 		    	XAlign = "Center"
 				YAlign="Center"/>
-
-		    <Label 
-		    	Text="{Binding x,y, StringFormat='Генерирующая точка [{0:F0} ; {0:F0}])'}"
+			
+		    <Label x:Name="labelPoint"
 		    	XAlign = "Center"
 				YAlign="Center"/>
 
@@ -25,7 +23,7 @@
 
 			<Entry Keyboard="Numeric" x:Name="entryZ" Placeholder="z = " TextChanged="handler_changedZValidate"/>
 
-			<Button Text="Помножить точку на число" x:Name="buttonMult" IsEnabled="true"
+			<Button Text="Помножить точку на число" x:Name="buttonMult" 
 				Clicked="handler_buttonMultClick"/>
 
 			<Grid>
@@ -64,11 +62,11 @@
 			</Grid>
 
 
-			<Button Text="Сложить точки" x:Name="buttonAddition" IsEnabled="true"
+			<Button Text="Сложить точки" x:Name="buttonAddition"
 				Clicked="handler_buttonAdditionClick"/>
 
 
-			<Button Text="Перейти к криптографии" IsEnabled="true"
+			<Button Text="Перейти к криптографии"
 				Clicked="handler_buttonCryptoClick"/>
 		</StackLayout>
 	</ScrollView>

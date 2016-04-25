@@ -3,7 +3,7 @@
 			 x:Class="EllipticCurves.StartPage">
 	<ScrollView>
 		    <StackLayout Padding="10, 10, 10, 10">
-			    	<Button Text="Калькулятор" x:Name="calculatorButton" Clicked="handler_calculatorButtonClick"
+			    	<Button Text="Калькулятор GF(n)" x:Name="calculatorButton" Clicked="handler_calculatorButtonClick"
 			    		Font="32"  VerticalOptions="StartAndExpand"/>
 			    	<Button Text="Эллиптические кривые" x:Name="ellipticButton" Clicked="handler_ellipticButtonClick"
 			    		Font="32" VerticalOptions="StartAndExpand"/>
