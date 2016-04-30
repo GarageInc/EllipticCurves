@@ -60,11 +60,11 @@ namespace EllipticCurves
 				errors.Clear ();
 			}
             
-            getCountButton.IsEnabled = curve.generation_point.isBelongToCurve() && !isError;
+            getCountButton.IsEnabled = curve.generationPoint.isBelongToCurve() && !isError;
 
-			genRandomPointButton.IsEnabled = curve.generation_point.isBelongToCurve() && !isError;
+			genRandomPointButton.IsEnabled = curve.generationPoint.isBelongToCurve() && !isError;
 
-			operationsButton.IsEnabled = curve.generation_point.validatedAll && !isError;
+			operationsButton.IsEnabled = curve.generationPoint.validatedAll && !isError;
             
 			labelCountPoints.Text = "";
 		}
@@ -72,7 +72,7 @@ namespace EllipticCurves
 
 
 		public void invalidateGenPoint(){
-			if (curve.generation_point.isBelongToCurve()) {
+			if (curve.generationPoint.isBelongToCurve()) {
 
 				trace ("Точка принадлежит прямой", Color.Green);
 				operationsButton.IsEnabled = true;
@@ -130,7 +130,7 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					curve.generation_point.x = new BigInteger(entryX.Text, 10);
+					curve.generationPoint.x = new BigInteger(entryX.Text, 10);
 				}
 			} catch{
 				errors.Add("Неверное значение 'x' = " + entryX.Text);
@@ -144,7 +144,7 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					curve.generation_point.y = new BigInteger(entryY.Text, 10);
+					curve.generationPoint.y = new BigInteger(entryY.Text, 10);
 				}
 			} catch{
 				errors.Add("Неверное значение 'y' = " + entryY.Text);
@@ -180,13 +180,13 @@ namespace EllipticCurves
 			stackResults.Children.Clear ();
 			trace (outputS, Color.Green);
 
-			labelCountPoints.Text = curve.count_points.ToString() + "( 1 бесконечная )";
+			labelCountPoints.Text = curve.CountPoints.ToString() + "( 1 бесконечная )";
 		}
 			
 
 		private void handler_operationsButtonClick(object sender, EventArgs e)
 		{
-			this.Navigation.PushAsync(new Operations(parent, curve.generation_point));
+			this.Navigation.PushAsync(new Operations(parent, curve.generationPoint));
 		}
 	}
 }

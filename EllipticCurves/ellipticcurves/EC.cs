@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EllipticCurves
 {
@@ -10,10 +11,8 @@ namespace EllipticCurves
 		public BigInteger b{ get; set; }
 		public BigInteger p {get; set;}
 
-		public ECPoint generation_point{ get; set; }
-		public int count_points{ get; set; }
-
-		protected List<ECPoint> points = new List<ECPoint> ();
+		public ECPoint generationPoint{ get; set; }
+        
 
 		public EC ()
 		{
@@ -21,14 +20,14 @@ namespace EllipticCurves
 			b = 0;
 			p = 0;
 
-			generation_point = new ECPoint ();
-		    generation_point.elliptic_curve = this;
+			generationPoint = new ECPoint ();
+		    generationPoint.elliptic_curve = this;
 		}
 
 		protected BigInteger startGen = 0;
 		protected BigInteger getRandomPointCoord_y(){
 			l1:
-			BigInteger y = ((startGen * startGen * startGen + startGen * generation_point.a + generation_point.b) % p ).sqrt();
+			BigInteger y = ((startGen * startGen * startGen + startGen * generationPoint.a + generationPoint.b) % p ).sqrt();
 
 			if (((y * y) % p) == ((startGen * startGen * startGen + startGen * a + b) % p)) {
 
@@ -44,23 +43,38 @@ namespace EllipticCurves
 
 		protected ECPoint getNext(){
 
-			generation_point.y = getRandomPointCoord_y ();
-			generation_point.x = startGen - 1;
+			generationPoint.y = getRandomPointCoord_y ();
+			generationPoint.x = startGen - 1;
 
-			return generation_point;
+			return generationPoint;
 		}
 
 		public ECPoint createRandomGeneratingPoint(){
 		
 			if (p != 0) {
 
-				generation_point = getNext ();
+				generationPoint = getNext ();
 			}
 
-			return generation_point;
+			return generationPoint;
 		}
 
-		public List<ECPoint> GetAllPoints() => points;
+	    public List<ECPoint> GetAllPoints()
+	    {
+            List<ECPoint> points = new List<ECPoint>();
+
+	        startGen = 0;
+            points.Add( createRandomGeneratingPoint() );
+
+	        do
+	        {
+	            points.Add(getNext());
+	        } while (points[0] != points.Last());
+
+	        points.Remove(points.Last());
+
+	        return points;
+	    }
 
 
 	    public bool isNotSingular => (4 * a * a * a + 27 * b * b) % p != 0;

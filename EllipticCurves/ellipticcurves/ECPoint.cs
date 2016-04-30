@@ -190,7 +190,7 @@ namespace EllipticCurves
 			return temp;
 		}
 
-		override public string ToString(){
+		public override string ToString(){
 			return "[ " + x.ToString () + " ; " + y.ToString () + " ]";
 		}
 	}
