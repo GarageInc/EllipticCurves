@@ -11,6 +11,12 @@ namespace EllipticCurves
 
 		ECPoint point;
 
+		string errorP="";
+		string errorA="";
+		string errorB="";
+		string errorX="";
+		string errorY="";
+
 		public CryptoExamples (StartPage page, ECPoint p = null)
 		{
 			InitializeComponent ();
@@ -23,9 +29,231 @@ namespace EllipticCurves
 				point = p;
 			}			
 
-			// operationsButton.IsEnabled = point.validatedAll;
+			this.BindingContext = point;
+
+			invalidateGenPoint ();
 		}
 
+		protected void invalidateErrors(){
+			stackResults.Children.Clear ();
+
+			bool isError = false;
+
+			if (errorP != "") {
+				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorP,VerticalOptions=LayoutOptions.StartAndExpand });
+				isError = true;
+			}
+			if (errorA != "") {
+				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorA, VerticalOptions=LayoutOptions.StartAndExpand });
+				isError = true;			
+			}
+			if (errorB != "") {
+				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorB,VerticalOptions=LayoutOptions.StartAndExpand });	
+				isError = true;
+			}
+			if (errorX != "") {
+				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorX,VerticalOptions=LayoutOptions.StartAndExpand });	
+				isError = true;
+			}
+			if (errorY != "") {
+				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorY,VerticalOptions=LayoutOptions.StartAndExpand });	
+				isError = true;
+			}
+
+			if (isError) {
+				frameResult.OutlineColor = Color.Red;
+			} else {
+				frameResult.OutlineColor = Color.Green;
+			}
+
+		}
+
+
+		public void invalidateGenPoint(){
+			if (point!=null && point.FieldChar != 0) {
+
+				stackResults.Children.Clear ();
+
+				if (((point.y * point.y) % point.FieldChar) == ((point.x * point.x * point.x + point.x * point.a + point.b) % point.FieldChar)) {
+
+					frameResult.OutlineColor = Color.Green;
+					stackResults.Children.Add (new Label {
+						TextColor = Color.Green,
+						Text = "Точка принадлежит прямой.",
+						VerticalOptions = LayoutOptions.StartAndExpand
+					});	
+					setButtonsStates(true);
+				} else {
+
+					frameResult.OutlineColor = Color.Red;
+					stackResults.Children.Add (new Label {
+						TextColor = Color.Red,
+						Text = "Точка не принадлежит прямой!",
+						VerticalOptions = LayoutOptions.StartAndExpand
+					});	
+					setButtonsStates(false);
+				}
+			} else {
+
+				setButtonsStates(false);
+			}
+		}
+
+		public void setButtonsStates( bool state ){
+			gost3410Button.IsEnabled = state;
+		}
+
+
+		public void trace(string message){
+
+			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = message,VerticalOptions=LayoutOptions.StartAndExpand });
+		}
+
+		public void traceError(string message){
+
+			stackResults.Children.Add (new Label { TextColor=Color.Red, Text = message,VerticalOptions=LayoutOptions.StartAndExpand });
+		}
+
+		// HANDLERS
+
+		public void handler_changedPValidate(object sender, EventArgs e){
+			try{
+				Entry current = sender as Entry;
+				if ( current.Text != null && current.Text != ""){
+					point.FieldChar = new BigInteger(entryP.Text, 10);
+				}
+				errorP = "";
+			} catch{
+				errorP = "Неверное значение 'p' = " + entryP.Text;
+			} finally{
+				invalidateErrors();
+			}
+		}
+		public void handler_changedAValidate(object sender, EventArgs e){
+			try{
+				Entry current = sender as Entry;
+				if ( current.Text != null && current.Text != ""){
+					point.a = new BigInteger(entryA.Text, 10);
+				}
+				errorA = "";
+			} catch{
+				errorA = "Неверное значение 'a' = " + entryA.Text;
+			} finally{
+				invalidateErrors();
+			}
+		}
+
+		public void handler_changedBValidate(object sender, EventArgs e){
+			try{
+				Entry current = sender as Entry;
+				if ( current.Text != null && current.Text != ""){
+					point.b = new BigInteger(entryB.Text, 10);
+				}
+				errorB = "";
+			} catch{
+				errorB = "Неверное значение 'b' = " + entryB.Text;
+			} finally{
+				invalidateErrors();
+			}
+		}
+
+		public void handler_changedXValidate(object sender, EventArgs e){
+			try{
+				Entry current = sender as Entry;
+				if ( current.Text != null && current.Text != ""){
+					point.x = new BigInteger(entryX.Text, 10);
+				}
+				errorX = "";
+			} catch{
+				errorX = "Неверное значение 'x' = " + entryX.Text;
+			} finally{
+				invalidateErrors();
+				invalidateGenPoint ();
+			}
+		}
+
+		public void handler_changedYValidate(object sender, EventArgs e){
+			try{
+				Entry current = sender as Entry;
+				if ( current.Text != null && current.Text != ""){
+					point.y = new BigInteger(entryY.Text, 10);
+				}
+				errorY = "";
+			} catch{
+				errorY = "Неверное значение 'y' = " + entryY.Text;
+			} finally{
+				invalidateErrors();
+				invalidateGenPoint ();
+			}
+		}
+
+		public BigInteger getRandomPointCoord_y(){
+			l1:
+			BigInteger y = ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar ).sqrt();
+
+			if (((y * y) % point.FieldChar) == ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar)) {
+
+				startGen = (startGen+1) % point.FieldChar;
+				return y;
+			} else {
+
+				startGen++;
+				startGen = startGen % point.FieldChar;
+				goto l1;
+			}
+		}
+
+		BigInteger startGen = 0;
+		public void handler_gost3410ButtonClick(object sender, EventArgs e){
+
+			stackResults.Children.Clear ();
+
+			// Сначала нужно получить порядок точки эллиптической кривой
+			List<ECPoint> points = new List<ECPoint>();
+			ECPoint p = new ECPoint(point);
+
+			int i = 2;
+			while( !Functions.isFirst(points,p) ) {
+
+				if (!Functions.Contains (points, p)) {
+					points.Add (p);
+				}// pass
+
+				p = ECPoint.multiply (i, point);
+				i++;
+			}
+
+			try{
+				int k = points.Count + 1;
+				trace ("0) Порядок точки 'k' = " + k.ToString ());
+
+				string message = "'какой-то текст'";
+				trace ("1) Проведём шифрование сообщения " + message);
+			
+				DSGost DS = new DSGost(point.FieldChar, point.a, point.b, k, System.Text.Encoding.Unicode.GetBytes(message));
+				BigInteger d=DS.GenPrivateKey(5);
+
+				trace ("2) Сгенерирован приватный ключ 'd'=" + d.ToString ());
+				ECPoint Q = DS.GenPublicKey(d);  
+				trace ("3) Сгенерирован публичный от 'd' ключ 'Q' = " + Q.ToString ());
+
+				trace("4) ...генерируем хеш ГОСТ...");
+				GOST hash = new GOST(256);
+				byte[] H = hash.GetHash(System.Text.Encoding.Unicode.GetBytes("Message"));
+
+				trace ("5) Получен ГОСТ-хэш(от сообщения) 'H' = " + System.Text.Encoding.Unicode.GetString(H,0,H.Length));
+
+				string sign  = DS.SignGen(H, d);
+				trace ("6) Получена цифровая подпись (по секретному ключу 'd') 'sign' = " + sign);
+
+
+				bool result = DS.SignVer(H, sign, Q);  
+				trace ("7) Удалось ли провести верификацию(с открытым ключом 'Q')? :" + (result ? "да" : "нет"));
+			} catch(Exception er){
+				
+				traceError ("Случилась какая-то ошибка в формировании ключа. Вы всё ввели правильно?");
+			}
+		}
 	}
 }
 

@@ -49,7 +49,7 @@
 			      <RowDefinition Height="*" />
 			      <RowDefinition Height="*" />
 			      <RowDefinition Height="*" />
-			      <RowDefinition Height="*" />
+			      <!--<RowDefinition Height="*" />-->
 			    </Grid.RowDefinitions>
 
 			    <Label Text="Генерирующая точка"  Grid.ColumnSpan="13" XAlign = "Center"	YAlign="Center" FontSize="22" TextColor="White"/>
@@ -94,7 +94,7 @@
 					-->
 
 				<Button Text="Операции с выбранной точкой" x:Name="operationsButton" Clicked="handler_operationsButtonClick" 
-					Grid.Row="7" Grid.ColumnSpan="13" IsEnabled="false" />
+					Grid.Row="6" Grid.ColumnSpan="13" IsEnabled="false" />
 			</Grid>
 
 		</StackLayout>

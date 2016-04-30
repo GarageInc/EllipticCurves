@@ -232,6 +232,10 @@ namespace EllipticCurves
 			}
 			return temp;
 		}
+
+		override public void ToString(){
+			return "[ " + x.ToString () + " ; " + y.ToString () + " ]";
+		}
 	}
 }
 

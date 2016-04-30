@@ -40,6 +40,19 @@ namespace EllipticCurves
 			this.BindingContext = point;
 
 			buttonMult.IsEnabled = false;
+			buttonAddition.IsEnabled = additionPoint.x != 0 && additionPoint.y != 0;
+
+			string text = "EC: Y^2 = X^3";
+			if (point.a != 0) {
+				text += String.Format ("+{0:F0}*X", point.a);
+			}
+
+			if (point.b != 0) {
+				text += String.Format ("+{0:F0}", point.b);
+			}
+
+			labelEC.Text = text;
+			labelPoint.Text = String.Format ("Генерирующая точка [{0:F0} ; {1:F0}])", point.x, point.y);
 		}
 
 
@@ -77,8 +90,6 @@ namespace EllipticCurves
 
 			stackResults.Children.Clear ();
 
-			// stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
-
 			result = Functions.getPointtoString (p);
 			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
 
@@ -106,9 +117,9 @@ namespace EllipticCurves
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
 					additionPoint.x = new BigInteger(entryX.Text, 10);
+					buttonAddition.IsEnabled = true;
 				}
 				errorX = "";
-				buttonAddition.IsEnabled = true;
 			} catch{
 				buttonAddition.IsEnabled = false;
 				errorX = "Неверное значение 'x' = " + entryX.Text;
@@ -123,9 +134,9 @@ namespace EllipticCurves
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
 					additionPoint.y = new BigInteger(entryY.Text, 10);
+					buttonAddition.IsEnabled = true;
 				}
 				errorY = "";
-				buttonAddition.IsEnabled = true;
 			} catch{
 				buttonAddition.IsEnabled = false;
 				errorY = "Неверное значение 'y' = " + entryY.Text;
@@ -142,7 +153,7 @@ namespace EllipticCurves
 				}
 
 				if( z== 0){
-					throw Exception("not valid");
+					throw new Exception("not valid");
 				}
 
 				errorZ = "";
@@ -165,6 +176,9 @@ namespace EllipticCurves
 
 		protected void handler_buttonAdditionClick(object sender, EventArgs e)
 		{
+			additionPoint.x = additionPoint.x % point.FieldChar;
+			additionPoint.y = additionPoint.y % point.FieldChar;
+
 			var resultPoint = point + additionPoint;
 
 			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = "Сложение точек:", VerticalOptions=LayoutOptions.StartAndExpand });

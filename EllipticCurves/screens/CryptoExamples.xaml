@@ -1,33 +1,39 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="EllipticCurves.CryptoExamples">
+		<ScrollView>
+			    <StackLayout Padding="10, 10, 10, 10">
+				    <Grid>
+					    <Grid.ColumnDefinitions>
+					      <ColumnDefinition Width="*" />
+					    </Grid.ColumnDefinitions>
+					    <Grid.RowDefinitions>
+					      <RowDefinition Height="*" />
+					      <RowDefinition Height="*" />
+					      <RowDefinition Height="*" />
+					      <RowDefinition Height="*" />
+					      <RowDefinition Height="*" />
+					      <RowDefinition Height="*" />
+					      <RowDefinition Height="*" />
+					    </Grid.RowDefinitions>
 
-	<ScrollView>
-		    <StackLayout Padding="10, 10, 10, 10">
-			    <Grid>
-				    <Grid.ColumnDefinitions>
-				      <ColumnDefinition Width="*" />
-				    </Grid.ColumnDefinitions>
-				    <Grid.RowDefinitions>
-				      <RowDefinition Height="*" />
-				      <RowDefinition Height="*" />
-				      <RowDefinition Height="*" />
-				      <RowDefinition Height="*" />
-				      <RowDefinition Height="*" />
-				      <RowDefinition Height="*" />
-				      <RowDefinition Height="*" />
-				    </Grid.RowDefinitions>
+					    <Label Text="Параметры кривой(a,b,p):" Grid.Column="0" Grid.Row="0"/>
 
-				    <Label  Text="{Binding a,b,FieldChar, StringFormat='E: Y^2=X^3+{0:F0}*X+{0:F0} (mod {0:F0})'}"
-					    	XAlign = "Center"
-							YAlign="Center" Grid.Column="0" Grid.Row="0"/>	
+						<Entry Keyboard="Numeric" x:Name="entryA" Text="{Binding a, StringFormat='{0:F0}'}" Placeholder="a =" TextChanged="handler_changedAValidate"  Grid.Column="0" Grid.Row="1"/>
+						<Entry Keyboard="Numeric" x:Name="entryB" Text="{Binding b, StringFormat='{0:F0}'}}" Placeholder="b =" TextChanged="handler_changedBValidate"  Grid.Column="0" Grid.Row="2"/>
+						<Entry Keyboard="Numeric" x:Name="entryP" Text="{Binding FieldChar, StringFormat='{0:F0}'}}" Placeholder="p =" TextChanged="handler_changedPValidate"  Grid.Column="0" Grid.Row="3"/>
 
-					      <Entry Keyboard="Numeric" x:Name="entryA" Text="{Binding a}" Placeholder="a =" TextChanged="handler_changedAValidate"  Grid.Column="0" Grid.Row="1"/>
-					      <Entry Keyboard="Numeric" x:Name="entryB" Text="{Binding b}" Placeholder="b =" TextChanged="handler_changedBValidate"  Grid.Column="0" Grid.Row="2"/>
-					      <Entry Keyboard="Numeric" x:Name="entryP" Text="{Binding FieldChar}" Placeholder="p =" TextChanged="handler_changedPValidate"  Grid.Column="0" Grid.Row="3"/>
+						<Label Text="Параметры точки [x;y]:" Grid.Column="0" Grid.Row="4" />
+						<Entry Keyboard="Numeric" x:Name="entryX" Text="{Binding x, StringFormat='{0:F0}'}}" Placeholder="b =" TextChanged="handler_changedXValidate"  Grid.Column="0" Grid.Row="5"/>
+						<Entry Keyboard="Numeric" x:Name="entryY" Text="{Binding y, StringFormat='{0:F0}'}}" Placeholder="p =" TextChanged="handler_changedYValidate"  Grid.Column="0" Grid.Row="6"/>
+					</Grid>
 
-					      <Entry Keyboard="Numeric" x:Name="entryX" Text="{Binding x}" Placeholder="b =" TextChanged="handler_changedBValidate"  Grid.Column="0" Grid.Row="4"/>
-					      <Entry Keyboard="Numeric" x:Name="entryY" Text="{Binding y}" Placeholder="p =" TextChanged="handler_changedPValidate"  Grid.Column="0" Grid.Row="5"/>
-				</Grid>
-		    </StackLayout>
-	</ScrollView>
+				    <Frame OutlineColor="Green" x:Name="frameResult">
+						<StackLayout x:Name="stackResults">
+						</StackLayout>	
+					</Frame>
+
+
+					<Button Text="Пример ГОСТ 34.10" x:Name="gost3410Button" Clicked="handler_gost3410ButtonClick"/>
+			    </StackLayout>
+		</ScrollView>
 </ContentPage>

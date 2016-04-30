@@ -144,6 +144,7 @@ namespace EllipticCurves
 			setPoint ();
 		}
 
+		BigInteger startGen = 0;
 		public void setPoint(){
 
 			ECPoint result = curve.createRandomGeneretingPoint ();
