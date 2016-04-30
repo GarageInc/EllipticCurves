@@ -5,12 +5,10 @@ namespace EllipticCurves
 {
 	public class ECPoint:INotifyPropertyChanged
 	{
-		protected EC elliptic_curve;
+		public EC elliptic_curve;
 
 		protected BigInteger xx {get;set;}
 		protected BigInteger yy {get;set;}
-
-
 
 		public ECPoint(ECPoint p)
 		{
@@ -26,6 +24,10 @@ namespace EllipticCurves
 
 			y = new BigInteger();
 			x = new BigInteger();
+		}
+
+		public ECPoint()
+		{
 		}
 
 		public BigInteger x
@@ -155,7 +157,7 @@ namespace EllipticCurves
 		//сложение двух точек P1 и P2
 		public static ECPoint operator +(ECPoint p1, ECPoint p2)
 		{
-			ECPoint p3 = new ECPoint();
+			ECPoint p3 = new ECPoint(p1.elliptic_curve);
 			p3.a = p1.a;
 			p3.b = p1.b;
 			p3.p = p1.p;
@@ -187,7 +189,7 @@ namespace EllipticCurves
 		// сложение точки P c собой же
 		public static ECPoint Double(ECPoint p)
 		{
-			ECPoint p2 = new ECPoint();
+			ECPoint p2 = new ECPoint( p.elliptic_curve );
 			p2.a = p.a;
 			p2.b = p.b;
 			p2.p = p.p;
@@ -233,7 +235,7 @@ namespace EllipticCurves
 			return temp;
 		}
 
-		override public void ToString(){
+		override public string ToString(){
 			return "[ " + x.ToString () + " ; " + y.ToString () + " ]";
 		}
 	}

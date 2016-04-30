@@ -64,6 +64,13 @@ namespace EllipticCurves
 
 			return points;
 		}
+
+
+		public bool isSingular{
+			get {
+				return (4 * a * a * a + 27 * b * b) % p != 0; 
+			}
+		}
 	}
 }
 

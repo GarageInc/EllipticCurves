@@ -24,32 +24,39 @@ namespace EllipticCurves
 			invalidateErrors ();
 		}
 
-		protected void trace(string message, Color color){
+		protected void trace(string message, Color color = Color.Red){
 
 			frameResult.OutlineColor = color;
 
-			stackResults.Children.Add (new Label { TextColor=Color.Red, Text = message,VerticalOptions=LayoutOptions.StartAndExpand });
+			stackResults.Children.Add (new Label { TextColor=color, Text = message,VerticalOptions=LayoutOptions.StartAndExpand });
 		}
 
 		protected void invalidateErrors(){
 			stackResults.Children.Clear ();
 
-			bool isError = false;
+			bool isError = curve.isSingular;
 
 			if (errors.Count > 0) {
 				isError = true;
 
 				foreach (string e in errors) {
-					trace (e, Color.Red);
+					trace (e);
 				}
 
 				errors.Clear ();
 			}
 
-			operationsButton.IsEnabled = current_point.validatedAll && !isError;
-
 			getCountButton.IsEnabled = curve.generation_point.isBelongToCurve() && !isError;
+
 			genRandomPointButton.IsEnabled = curve.generation_point.isBelongToCurve() && !isError;
+
+			operationsButton.IsEnabled = curve.generation_point.validatedAll && !isError;
+
+			if (curve.isSingular) {
+				trace ("Кривая сингулярная: не выполняется условие 4*a^3 + 27*b^2 = 0, криптографические операции не применимы");
+			} else {
+				trace ("Кривая не сингулярная(гладкая)");
+			}
 
 			labelCountPoints.Text = "";
 		}
@@ -59,11 +66,11 @@ namespace EllipticCurves
 		public void invalidateGenPoint(){
 			if (curve.generation_point.isBelongToCurve()) {
 
-				trace("Точка принадлежит прямой", Color.Green)
+				trace ("Точка принадлежит прямой", Color.Green);
 				operationsButton.IsEnabled = true;
 			} else {
 
-				trace("Точка не принадлежит прямой!", Color.Red)
+				trace ("Точка не принадлежит прямой!", Color.Red);
 				operationsButton.IsEnabled = false;
 			}
 		}
@@ -144,10 +151,9 @@ namespace EllipticCurves
 			setPoint ();
 		}
 
-		BigInteger startGen = 0;
 		public void setPoint(){
 
-			ECPoint result = curve.createRandomGeneretingPoint ();
+			ECPoint result = curve.createRandomGeneratingPoint ();
 
 			entryX.Text = result.x.ToString ();
 			entryY.Text = result.y.ToString ();
@@ -157,14 +163,14 @@ namespace EllipticCurves
 		{
 			List<ECPoint> points = curve.getAllPoints ();
 
-			string result = "";
+			string outputS = "";
 
 			foreach(var p in points){
-				result += Functions.getPointtoString (p) + " ";
+				outputS += Functions.getPointtoString (p) + " ";
 			}
 
 			stackResults.Children.Clear ();
-			trace (result, Color.Green);
+			trace (outputS, Color.Green);
 
 			labelCountPoints.Text = curve.count_points.ToString() + "( 1 бесконечная )";
 		}

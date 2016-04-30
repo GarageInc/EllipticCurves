@@ -70,11 +70,11 @@ namespace EllipticCurves
 
 
 		public void invalidateGenPoint(){
-			if (point!=null && point.FieldChar != 0) {
+			if (point!=null && point.p != 0) {
 
 				stackResults.Children.Clear ();
 
-				if (((point.y * point.y) % point.FieldChar) == ((point.x * point.x * point.x + point.x * point.a + point.b) % point.FieldChar)) {
+				if (((point.y * point.y) % point.p ) == ((point.x * point.x * point.x + point.x * point.a + point.b) % point.p)) {
 
 					frameResult.OutlineColor = Color.Green;
 					stackResults.Children.Add (new Label {
@@ -120,7 +120,7 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					point.FieldChar = new BigInteger(entryP.Text, 10);
+					point.p = new BigInteger(entryP.Text, 10);
 				}
 				errorP = "";
 			} catch{
@@ -189,16 +189,16 @@ namespace EllipticCurves
 
 		public BigInteger getRandomPointCoord_y(){
 			l1:
-			BigInteger y = ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar ).sqrt();
+			BigInteger y = ((startGen * startGen * startGen + startGen * point.a + point.b) % point.p ).sqrt();
 
-			if (((y * y) % point.FieldChar) == ((startGen * startGen * startGen + startGen * point.a + point.b) % point.FieldChar)) {
+			if (((y * y) % point.p) == ((startGen * startGen * startGen + startGen * point.a + point.b) % point.p)) {
 
-				startGen = (startGen+1) % point.FieldChar;
+				startGen = (startGen+1) % point.p;
 				return y;
 			} else {
 
 				startGen++;
-				startGen = startGen % point.FieldChar;
+				startGen = startGen % point.p;
 				goto l1;
 			}
 		}
@@ -230,7 +230,7 @@ namespace EllipticCurves
 				string message = "'какой-то текст'";
 				trace ("1) Проведём шифрование сообщения " + message);
 			
-				DSGost DS = new DSGost(point.FieldChar, point.a, point.b, k, System.Text.Encoding.Unicode.GetBytes(message));
+				DSGost DS = new DSGost(point.p, point.a, point.b, k, System.Text.Encoding.Unicode.GetBytes(message));
 				BigInteger d=DS.GenPrivateKey(5);
 
 				trace ("2) Сгенерирован приватный ключ 'd'=" + d.ToString ());

@@ -176,8 +176,8 @@ namespace EllipticCurves
 
 		protected void handler_buttonAdditionClick(object sender, EventArgs e)
 		{
-			additionPoint.x = additionPoint.x % point.FieldChar;
-			additionPoint.y = additionPoint.y % point.FieldChar;
+			additionPoint.x = additionPoint.x % point.p;
+			additionPoint.y = additionPoint.y % point.p;
 
 			var resultPoint = point + additionPoint;
 
