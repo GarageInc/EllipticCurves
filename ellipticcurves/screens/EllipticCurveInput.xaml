@@ -22,8 +22,7 @@
 			</Grid>
 			        
 			<Frame OutlineColor="Green" x:Name="frameResult">
-				<StackLayout
-										        	 	x:Name="stackResults">
+				<StackLayout x:Name="stackResults">
 				</StackLayout>	
 			</Frame>
 

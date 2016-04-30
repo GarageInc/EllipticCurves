@@ -22,6 +22,7 @@ namespace EllipticCurves
 			p = 0;
 
 			generation_point = new ECPoint ();
+		    generation_point.elliptic_curve = this;
 		}
 
 		protected BigInteger startGen = 0;
@@ -49,7 +50,7 @@ namespace EllipticCurves
 			return generation_point;
 		}
 
-		public ECPoint createRandomGeneretingPoint(){
+		public ECPoint createRandomGeneratingPoint(){
 		
 			if (p != 0) {
 
@@ -59,18 +60,10 @@ namespace EllipticCurves
 			return generation_point;
 		}
 
-		public List<ECPoint> getAllPoints(){
-		
-
-			return points;
-		}
+		public List<ECPoint> GetAllPoints() => points;
 
 
-		public bool isSingular{
-			get {
-				return (4 * a * a * a + 27 * b * b) % p != 0; 
-			}
-		}
+	    public bool isNotSingular => (4 * a * a * a + 27 * b * b) % p != 0;
 	}
 }
 

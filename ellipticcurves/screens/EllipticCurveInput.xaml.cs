@@ -24,7 +24,7 @@ namespace EllipticCurves
 			invalidateErrors ();
 		}
 
-		protected void trace(string message, Color color = Color.Red){
+		protected void trace(string message, Color color){
 
 			frameResult.OutlineColor = color;
 
@@ -34,30 +34,38 @@ namespace EllipticCurves
 		protected void invalidateErrors(){
 			stackResults.Children.Clear ();
 
-			bool isError = curve.isSingular;
+		    bool isError = false;
+
+		    if (curve.p != 0)
+		    {
+		        isError = !curve.isNotSingular;
+
+                if (curve.isNotSingular)
+                {
+                    trace("Кривая не сингулярная(гладкая)", Color.Green);
+                }
+                else
+                {
+                    trace("Кривая сингулярная: не выполняется условие 4*a^3 + 27*b^2 != 0, криптографические операции не применимы", Color.Red);
+                }
+            }
 
 			if (errors.Count > 0) {
 				isError = true;
 
 				foreach (string e in errors) {
-					trace (e);
+					trace (e, Color.Red);
 				}
 
 				errors.Clear ();
 			}
-
-			getCountButton.IsEnabled = curve.generation_point.isBelongToCurve() && !isError;
+            
+            getCountButton.IsEnabled = curve.generation_point.isBelongToCurve() && !isError;
 
 			genRandomPointButton.IsEnabled = curve.generation_point.isBelongToCurve() && !isError;
 
 			operationsButton.IsEnabled = curve.generation_point.validatedAll && !isError;
-
-			if (curve.isSingular) {
-				trace ("Кривая сингулярная: не выполняется условие 4*a^3 + 27*b^2 = 0, криптографические операции не применимы");
-			} else {
-				trace ("Кривая не сингулярная(гладкая)");
-			}
-
+            
 			labelCountPoints.Text = "";
 		}
 
@@ -161,7 +169,7 @@ namespace EllipticCurves
 
 		private void handler_getCountButtonClick(object sender, EventArgs e)
 		{
-			List<ECPoint> points = curve.getAllPoints ();
+			List<ECPoint> points = curve.GetAllPoints ();
 
 			string outputS = "";
 

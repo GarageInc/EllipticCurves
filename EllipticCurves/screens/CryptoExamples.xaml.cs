@@ -37,7 +37,13 @@ namespace EllipticCurves
 		protected void invalidateErrors(){
 			stackResults.Children.Clear ();
 
-			bool isError = false;
+			bool isError = point.elliptic_curve.isNotSingular;
+
+			if ( point.elliptic_curve.isNotSingular ) {
+				trace ("Кривая сингулярная: не выполняется условие 4*a^3 + 27*b^2 = 0, криптографические операции не применимы");
+			} else {
+				trace ("Кривая не сингулярная(гладкая)");
+			}
 
 			if (errorP != "") {
 				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorP,VerticalOptions=LayoutOptions.StartAndExpand });

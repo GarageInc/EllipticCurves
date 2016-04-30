@@ -1,11 +1,13 @@
 ﻿<Properties StartupItem="Droid\EllipticCurves.Droid.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="EllipticCurves\screens\Operations.xaml.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="EllipticCurves\screens\CryptoExamples.xaml.cs">
     <Files>
-      <File FileName="c:\Data\cross\EllipticCurves\EllipticCurves\screens\EllipticCurveInput.xaml.cs" Line="1" Column="1" />
-      <File FileName="EllipticCurves\ellipticcurves\ECPoint.cs" Line="1" Column="1" />
+      <File FileName="c:\Data\cross\EllipticCurves\EllipticCurves\screens\EllipticCurveInput.xaml.cs" Line="55" Column="4" />
+      <File FileName="EllipticCurves\ellipticcurves\ECPoint.cs" Line="99" Column="1" />
       <File FileName="EllipticCurves\ellipticcurves\DSGost.cs" Line="1" Column="1" />
       <File FileName="EllipticCurves\screens\Operations.xaml.cs" Line="161" Column="12" />
+      <File FileName="EllipticCurves\ellipticcurves\EC.cs" Line="69" Column="25" />
+      <File FileName="EllipticCurves\screens\CryptoExamples.xaml.cs" Line="42" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

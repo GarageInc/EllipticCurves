@@ -7,8 +7,8 @@ namespace EllipticCurves
 	{
 		public EC elliptic_curve;
 
-		protected BigInteger xx {get;set;}
-		protected BigInteger yy {get;set;}
+        public BigInteger x {get;set;}
+        public BigInteger y {get;set;}
 
 		public ECPoint(ECPoint p)
 		{
@@ -27,35 +27,11 @@ namespace EllipticCurves
 		}
 
 		public ECPoint()
-		{
-		}
-
-		public BigInteger x
-		{
-			get { return x; }
-			set
-			{
-				if (xx != value)
-				{
-					xx = value;
-					OnPropertyChanged("x");
-				}
-			}
-		}
-
-		public BigInteger y
-		{
-			get { return y; }
-			set
-			{
-				if (yy != value)
-				{
-					yy = value;
-					OnPropertyChanged("y");
-				}
-			}
-		}
-
+        {
+            y = new BigInteger();
+            x = new BigInteger();
+        }
+        
 		public BigInteger a
 		{
 			get { return elliptic_curve.a; }
@@ -64,7 +40,7 @@ namespace EllipticCurves
 				if (elliptic_curve.a != value)
 				{
 					elliptic_curve.a = value;
-					OnPropertyChanged("a");
+					//OnPropertyChanged("a");
 				}
 			}
 		}
@@ -77,7 +53,7 @@ namespace EllipticCurves
 				if (elliptic_curve.b != value)
 				{
 					elliptic_curve.b = value;
-					OnPropertyChanged("b");
+					//OnPropertyChanged("b");
 				}
 			}
 		}
@@ -90,7 +66,7 @@ namespace EllipticCurves
 				if (elliptic_curve.p != value)
 				{
 					elliptic_curve.p = value;
-					OnPropertyChanged("p");
+					//OnPropertyChanged("p");
 				}
 			}
 		}
@@ -131,28 +107,7 @@ namespace EllipticCurves
 		{			
 			return p1.x==p2.x && p1.y==p2.y;
 		}
-
-		protected void allChanged(){
-
-			OnPropertyChanged("x");
-			OnPropertyChanged("y");
-			OnPropertyChanged("a");
-			OnPropertyChanged("b");
-			OnPropertyChanged("p");
-		}
-
-		protected void OnPropertyChanged(string propName)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(propName));
-		}
-
-
-
-
-
-
-
+        
 
 		//сложение двух точек P1 и P2
 		public static ECPoint operator +(ECPoint p1, ECPoint p2)
