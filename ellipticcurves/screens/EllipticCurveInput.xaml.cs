@@ -60,7 +60,7 @@ namespace EllipticCurves
 				errors.Clear ();
 			}
             
-            getCountButton.IsEnabled = curve.generationPoint.isBelongToCurve() && !isError;
+            getCountButton.IsEnabled =  !isError;
 
 			genRandomPointButton.IsEnabled = curve.generationPoint.isBelongToCurve() && !isError;
 
@@ -161,7 +161,7 @@ namespace EllipticCurves
 
 		public void setPoint(){
 
-			ECPoint result = curve.createRandomGeneratingPoint ();
+			ECPoint result = curve.getNext();
 
 			entryX.Text = result.x.ToString ();
 			entryY.Text = result.y.ToString ();
@@ -174,13 +174,14 @@ namespace EllipticCurves
 			string outputS = "";
 
 			foreach(var p in points){
-				outputS += Functions.getPointtoString (p) + " ";
+				outputS += p + " ";
 			}
 
 			stackResults.Children.Clear ();
+
 			trace (outputS, Color.Green);
 
-			labelCountPoints.Text = curve.CountPoints.ToString() + "( 1 бесконечная )";
+			labelCountPoints.Text = points.Count + "( 1 бесконечная )";
 		}
 			
 

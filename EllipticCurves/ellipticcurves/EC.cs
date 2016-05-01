@@ -20,58 +20,82 @@ namespace EllipticCurves
 			b = 0;
 			p = 0;
 
-			generationPoint = new ECPoint ();
-		    generationPoint.elliptic_curve = this;
+		    generationPoint = new ECPoint
+		    {
+		        elliptic_curve = this
+		    };
 		}
 
+	    protected BigInteger findY(BigInteger second)
+	    {
+	        BigInteger counter = 0;
+	        while (counter < p)
+	        {
+	            var first = counter*counter % p;
+	            if (first == second)
+	            {
+	                return counter;
+	            }
+
+	            counter++;
+	        }
+
+	        return counter;
+	    }
 		protected BigInteger startGen = 0;
 		protected BigInteger getRandomPointCoord_y(){
 			l1:
-			BigInteger y = ((startGen * startGen * startGen + startGen * generationPoint.a + generationPoint.b) % p ).sqrt();
+			BigInteger secondPart = (startGen * startGen * startGen + startGen * generationPoint.a + generationPoint.b) % p ;
 
-			if (((y * y) % p) == ((startGen * startGen * startGen + startGen * a + b) % p)) {
+			startGen++;
+            startGen = startGen % p;
 
-				startGen = (startGen+1) % p;
+		    var y = findY(secondPart);
+
+            if ( y != p )
+			{
 				return y;
-			} else {
-
-				startGen++;
-				startGen = startGen % p;
-				goto l1;
 			}
+            
+		    goto l1;
 		}
 
-		protected ECPoint getNext(){
+		public ECPoint getNext(){
 
-			generationPoint.y = getRandomPointCoord_y ();
-			generationPoint.x = startGen - 1;
+            if (p != 0)
+            {
+                generationPoint.x = startGen;
+                generationPoint.y = getRandomPointCoord_y();
+            }
 
-			return generationPoint;
+		    var newPoint = new ECPoint
+		    {
+		        x = generationPoint.x,
+		        y = generationPoint.y,
+		        elliptic_curve = generationPoint.elliptic_curve
+		    };
+
+		    return newPoint;
 		}
-
-		public ECPoint createRandomGeneratingPoint(){
-		
-			if (p != 0) {
-
-				generationPoint = getNext ();
-			}
-
-			return generationPoint;
-		}
-
+        
 	    public List<ECPoint> GetAllPoints()
 	    {
             List<ECPoint> points = new List<ECPoint>();
 
 	        startGen = 0;
-            points.Add( createRandomGeneratingPoint() );
+            points.Add( getNext() );
 
-	        do
-	        {
-	            points.Add(getNext());
-	        } while (points[0] != points.Last());
+	        string outS = "";
 
-	        points.Remove(points.Last());
+	        outS += "" + points.Last();
+            do
+            {
+                var point = getNext();
+                points.Add( point );
+                outS += "" + point;
+            } while ( points[0] != points.Last() && startGen < p && startGen != 0);
+
+	        points.Remove( points.Last() );
 
 	        return points;
 	    }

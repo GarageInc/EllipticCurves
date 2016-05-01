@@ -90,7 +90,7 @@ namespace EllipticCurves
 
 			stackResults.Children.Clear ();
 
-			result = Functions.getPointtoString (p);
+			result = p.ToString();
 			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
 
 			frameResult.OutlineColor = Color.Green;

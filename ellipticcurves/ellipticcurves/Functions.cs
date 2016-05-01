@@ -56,16 +56,7 @@ namespace EllipticCurves
 
 			return 0;
 		}
-
-
-		public static string getPointtoString(ECPoint p){
-			string result = "";
-			result += "[ " + p.x + " ; " + p.y + " ]"; 
-
-			return result;
-		}
-
-
+        
 		public static bool isFirst(List<ECPoint> list, ECPoint p){
 			if (list.Count > 0) {
 				if ((list [0].x == p.x && list [0].y == p.y)) {

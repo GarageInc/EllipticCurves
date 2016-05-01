@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="EllipticCurves.cs" />
+    <Compile Include="ellipticcurves\BigInteger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ellipticcurves\Config.cs" />
     <Compile Include="screens\StartPage.xaml.cs">
@@ -42,7 +43,6 @@
     <Compile Include="screens\Error.xaml.cs">
       <DependentUpon>Error.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ellipticcurves\BigInteger.cs" />
     <Compile Include="ellipticcurves\Functions.cs" />
     <Compile Include="screens\EllipticCurveInput.xaml.cs">
       <DependentUpon>EllipticCurveInput.xaml</DependentUpon>

@@ -73,8 +73,17 @@ namespace EllipticCurves
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+        public static bool operator ==(ECPoint a, ECPoint b)
+        {
+            return a.x == b.x && a.y==b.y;
+        }
 
-		public bool  validatedAll{
+        public static bool operator !=(ECPoint a, ECPoint b)
+        {
+            return a.x != b.x || a.y != b.y;
+        }
+
+        public bool  validatedAll{
 			get {
 				return b != 0 && a != 0 && (x != 0 || y != 0) && p != 0;
 			}
