@@ -31,7 +31,7 @@ namespace EllipticCurves
 	        BigInteger counter = 0;
 	        while (counter < p)
 	        {
-	            var first = counter*counter % p;
+	            var first = (counter*counter) % p;
 	            if (first == second)
 	            {
 	                return counter;
@@ -64,8 +64,8 @@ namespace EllipticCurves
 
             if (p != 0)
             {
-                generationPoint.x = startGen;
                 generationPoint.y = getRandomPointCoord_y();
+                generationPoint.x = startGen - 1;// imprortant!
             }
 
 		    var newPoint = new ECPoint
@@ -83,21 +83,36 @@ namespace EllipticCurves
             List<ECPoint> points = new List<ECPoint>();
 
 	        startGen = 0;
+
+            var point = getNext();
+
             points.Add( getNext() );
+            points.Add(new ECPoint
+            {
+                x = point.x,
+                y = (-1) * point.y
+            });
 
-	        string outS = "";
 
-	        outS += "" + points.Last();
+            BigInteger counter = 0;
             do
             {
-                var point = getNext();
+                point = getNext();
+
                 points.Add( point );
-                outS += "" + point;
-            } while ( points[0] != points.Last() && startGen < p && startGen != 0);
+                points.Add(new ECPoint
+                {
+                    x=point.x,
+                    y=(-1)*point.y
+                });
+
+                counter++;
+            } while ( points[0] != points[points.Count-2] && counter < p);
 
 	        points.Remove( points.Last() );
+            points.Remove(points.Last());
 
-	        return points;
+            return points;
 	    }
 
 
