@@ -75,8 +75,6 @@ namespace EllipticCurves
 			labelCountPoints.Text = "";
 		}
 
-
-
 		public void invalidateGenPoint(){
 			if (curve.generationPoint.isBelongToCurve()) {
 
@@ -91,51 +89,45 @@ namespace EllipticCurves
 
 
 		// HANDLERS
-		public void handler_changedPValidate(object sender, EventArgs e){
-			try{
-				Entry current = sender as Entry;
-				if ( current.Text != null && current.Text != ""){
-					curve.p = new BigInteger(entryP.Text, 10);
-                }
-                else
-                {
-                    curve.p = 0;
-                }
-            } catch{
+		public void handler_changedPValidate(object sender, EventArgs e)
+		{
+		    clearPointEntries();
+            try
+            {
+                Entry current = sender as Entry;
+                curve.p = !string.IsNullOrEmpty(current.Text) ? new BigInteger(entryP.Text, 10) : 0;
+            }
+            catch{
 				errors.Add("Неверное значение 'p' = " + entryP.Text);
 			} finally{
 				invalidateErrors();
 			}
 		}
 
-		public void handler_changedAValidate(object sender, EventArgs e){
-			try{
-				Entry current = sender as Entry;
-				if ( current.Text != null && current.Text != ""){
-					curve.a = new BigInteger(entryA.Text, 10);
-                }
-                else
-                {
-                    curve.a = 0;
-                }
-            } catch{
+		public void handler_changedAValidate(object sender, EventArgs e)
+        {
+            clearPointEntries();
+            try
+            {
+                Entry current = sender as Entry;
+                curve.a = !string.IsNullOrEmpty(current.Text) ? new BigInteger(entryA.Text, 10) : 0;
+            }
+            catch{
 				errors.Add("Неверное значение 'a' = " + entryA.Text);
 			} finally{
 				invalidateErrors();
 			}
 		}
 
-		public void handler_changedBValidate(object sender, EventArgs e){
-			try{
-				Entry current = sender as Entry;
-				if ( current.Text != null && current.Text != ""){
-					curve.b = new BigInteger(entryB.Text, 10);
-                }
-                else
-                {
-                    curve.b = 0;
-                }
-            } catch{
+		public void handler_changedBValidate(object sender, EventArgs e)
+        {
+            clearPointEntries();
+            try
+            {
+                Entry current = sender as Entry;
+                curve.b = !string.IsNullOrEmpty(current.Text) ? new BigInteger(entryB.Text, 10) : 0;
+            }
+            catch{
 				errors.Add("Неверное значение 'b' = " + entryB.Text);
 			} finally{
 				invalidateErrors();
@@ -143,16 +135,12 @@ namespace EllipticCurves
 		}
 
 		public void handler_changedXValidate(object sender, EventArgs e){
-			try{
-				Entry current = sender as Entry;
-				if ( current.Text != null && current.Text != ""){
-					curve.generationPoint.x = new BigInteger(entryX.Text, 10);
-                }
-                else
-                {
-                    curve.generationPoint.x = 0;
-                }
-            } catch{
+			try
+			{
+			    Entry current = sender as Entry;
+			    curve.generationPoint.x = !string.IsNullOrEmpty(current.Text) ? new BigInteger(entryX.Text, 10) : 0;
+			}
+			catch{
 				errors.Add("Неверное значение 'x' = " + entryX.Text);
 			} finally{
 				invalidateErrors();
@@ -161,23 +149,25 @@ namespace EllipticCurves
 		}
 
 		public void handler_changedYValidate(object sender, EventArgs e){
-			try{
-				Entry current = sender as Entry;
-			    if (current.Text != null && current.Text != "")
-			    {
-			        curve.generationPoint.y = new BigInteger(entryY.Text, 10);
-			    }
-			    else
-			    {
-			        curve.generationPoint.y = 0;
-			    }
-			} catch{
+			try
+			{
+			    Entry current = sender as Entry;
+			    curve.generationPoint.y = !string.IsNullOrEmpty(current.Text) ? new BigInteger(entryY.Text, 10) : 0;
+			}
+			catch{
 				errors.Add("Неверное значение 'y' = " + entryY.Text);
 			} finally{
 				invalidateErrors();
 				invalidateGenPoint ();
 			}
 		}
+
+
+	    void clearPointEntries()
+	    {
+	        entryX.Text = "";
+	        entryY.Text = "";
+	    }
 
 		private void handler_genRandomPointButtonClick(object sender, EventArgs e)
 		{
@@ -192,13 +182,15 @@ namespace EllipticCurves
 			entryY.Text = result.y.ToString ();
 		}
 
-	    protected void getGenPoint()
-        {
-            curve.generationPoint.x = new BigInteger(entryX.Text, 10);
-            curve.generationPoint.y = new BigInteger(entryY.Text, 10);
-        }
-		private void handler_getCountButtonClick(object sender, EventArgs e)
+	    protected void setGenerationPoint()
+	    {
+	        curve.generationPoint.x = !string.IsNullOrEmpty(entryX.Text) ? new BigInteger(entryX.Text, 10) : 0;
+	        curve.generationPoint.y = !string.IsNullOrEmpty(entryY.Text) ? new BigInteger(entryY.Text, 10) : 0;
+	    }
+
+	    private void handler_getCountButtonClick(object sender, EventArgs e)
 		{
+            setGenerationPoint();
 			List<ECPoint> points = curve.GetAllPoints ();
 
 			string outputS = "";
@@ -213,7 +205,7 @@ namespace EllipticCurves
 
 			labelCountPoints.Text = points.Count + "( +1 бесконечная )";
 
-            getGenPoint();
+            setGenerationPoint();
             points = curve.generationPoint.pointsInOrder();
 
 		    labelOrderK.Text = points.Count.ToString();
@@ -222,7 +214,7 @@ namespace EllipticCurves
 
 		private void handler_operationsButtonClick(object sender, EventArgs e)
 		{
-		    getGenPoint();
+		    setGenerationPoint();
             this.Navigation.PushAsync(new Operations(parent, curve.generationPoint));
 		}
 	}

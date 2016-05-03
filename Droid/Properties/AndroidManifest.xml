@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.ellipticcurves">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.ellipticcurves" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="19" />
 	<application android:icon="@drawable/main_icon" android:label="Эллиптические кривые 1.0"></application>
 </manifest>

@@ -6,7 +6,6 @@ namespace EllipticCurves
 {
 	public class EC
 	{
-
 		public BigInteger a{ get; set; }
 		public BigInteger b{ get; set; }
 		public BigInteger p {get; set;}
@@ -40,7 +39,9 @@ namespace EllipticCurves
 
 	        return counter;
 	    }
+
 		protected BigInteger startGen = 0;
+
 		protected BigInteger getRandomPointCoord_y(){
 			l1:
 			BigInteger secondPart = (startGen * startGen * startGen + startGen * generationPoint.a + generationPoint.b) % p ;
@@ -62,16 +63,11 @@ namespace EllipticCurves
 
             if (p != 0)
             {
-                generationPoint.y = new BigInteger(getRandomPointCoord_y());
-                generationPoint.x = new BigInteger(startGen - 1);// imprortant!
+                generationPoint.y = new BigInteger( getRandomPointCoord_y() );
+                generationPoint.x = new BigInteger( startGen - 1 );// imprortant!
             }
 
-		    var newPoint = new ECPoint
-		    {
-		        x = new BigInteger(generationPoint.x),
-		        y = new BigInteger(generationPoint.y),
-		        elliptic_curve = generationPoint.elliptic_curve
-		    };
+		    var newPoint = new ECPoint(generationPoint);
 
 		    return newPoint;
 		}
@@ -85,9 +81,8 @@ namespace EllipticCurves
             var point = getNext();
 
             points.Add( point );
-            points.Add(new ECPoint
+            points.Add(new ECPoint(point)
             {
-                x = new BigInteger(point.x),
                 y = (-1) * new BigInteger(point.y)
             });
             
@@ -97,9 +92,8 @@ namespace EllipticCurves
                 point = getNext();
 
                 points.Add( point );
-                points.Add(new ECPoint
+                points.Add(new ECPoint(point)
                 {
-                    x= new BigInteger(point.x),
                     y=(-1)* new BigInteger(point.y)
                 });
 
@@ -112,7 +106,7 @@ namespace EllipticCurves
             } while ( points[0] != point && counter < p );
 
 	        points.Remove( points.Last() );
-            points.Remove(points.Last());
+            points.Remove( points.Last() );
 
             return points;
 	    }

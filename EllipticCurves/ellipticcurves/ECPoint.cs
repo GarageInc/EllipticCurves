@@ -174,15 +174,16 @@ namespace EllipticCurves
 				dx += p.p;
 			if (dy < 0)
 				dy += p.p;
+            
 
-			BigInteger m = (dy * dx.modInverse(p.p)) % p.p;
+            BigInteger m = (dy * (dx!=0 ?dx.modInverse(p.p) : 0) ) % p.p;
 			p2.x = (m * m - p.x - p.x) % p.p;
 			p2.y = (m * (p.x - p2.x) - p.y) % p.p;
 			if (p2.x < 0)
 				p2.x += p.p;
 			if (p2.y < 0)
 				p2.y += p.p;
-
+            
 			return p2;
 		}
 
@@ -221,14 +222,13 @@ namespace EllipticCurves
 	        string result = "";
 	        do
 	        {
-
 	            if (!Functions.Contains(points, point))
 	            {
 	                result += point + "";
 	                points.Add(point);
 	            } // pass
 
-	            point = ECPoint.multiply(i, this);
+	            point = multiply(i,this);
 	            i++;
 	        } while (points.First() != point);
 
