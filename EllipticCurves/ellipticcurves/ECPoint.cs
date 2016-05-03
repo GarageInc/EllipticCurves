@@ -174,10 +174,11 @@ namespace EllipticCurves
 				dx += p.p;
 			if (dy < 0)
 				dy += p.p;
-            
 
-            BigInteger m = (dy * (dx!=0 ?dx.modInverse(p.p) : 0) ) % p.p;
-			p2.x = (m * m - p.x - p.x) % p.p;
+
+            //BigInteger m = (dy * (dx!=0 ?dx.modInverse(p.p) : 0) ) % p.p;
+            BigInteger m = (dy *  dx.modInverse(p.p)) % p.p;
+            p2.x = (m * m - p.x - p.x) % p.p;
 			p2.y = (m * (p.x - p2.x) - p.y) % p.p;
 			if (p2.x < 0)
 				p2.x += p.p;
@@ -228,9 +229,17 @@ namespace EllipticCurves
 	                points.Add(point);
 	            } // pass
 
-	            point = multiply(i,this);
+	            //if (point.y == 0)
+	            {
+	              //  break;
+	            }
+
+	            if (point.y != 0)
+                {
+                    point = multiply(i, this);
+                }
 	            i++;
-	        } while (points.First() != point);
+	        } while (points.First() != point && i < p+2);
 
             return points;
 	    }

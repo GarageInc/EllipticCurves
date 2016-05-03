@@ -208,7 +208,7 @@ namespace EllipticCurves
             setGenerationPoint();
             points = curve.generationPoint.pointsInOrder();
 
-		    labelOrderK.Text = points.Count.ToString();
+		    labelOrderK.Text = (points.Count+1).ToString();
 		}
 			
 
