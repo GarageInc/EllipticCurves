@@ -57,26 +57,16 @@ namespace EllipticCurves
 			return 0;
 		}
         
-		public static bool isFirst(List<ECPoint> list, ECPoint p){
-			if (list.Count > 0) {
-				if ((list [0].x == p.x && list [0].y == p.y)) {
-					return true;
-				}
-				return false;
-			} else {
-				return false;
-			}
-		}
+		public static bool Contains(List<ECPoint> list, ECPoint p)
+		{
+		    foreach (ECPoint point in list)
+		    {
+		        if ( point == p ) {
+		            return true;
+		        }// pass
+		    }
 
-		public static bool Contains(List<ECPoint> list, ECPoint p){
-
-			for (int i = 0; i < list.Count; i++) {
-				if (list [i].x == p.x && list [i].y == p.y) {
-					return true;
-				}// pass
-			}
-
-			return false;
+		    return false;
 		}
 	}
 }

@@ -24,7 +24,7 @@ namespace EllipticCurves
 
 		protected void handler_buttonCryptoClick(object sender, EventArgs e)
 		{
-			this.Navigation.PushAsync(new CryptoExamples(this));
+			this.Navigation.PushAsync(new CryptoExamples(this, new ECPoint()));
 		}
 	}
 }

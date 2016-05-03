@@ -48,52 +48,52 @@
 			      <RowDefinition Height="*" />
 			      <RowDefinition Height="*" />
 			      <RowDefinition Height="*" />
-			      <!--<RowDefinition Height="*" />-->
+			      <RowDefinition Height="*" />
 			    </Grid.RowDefinitions>
 
 			    <Label Text="Генерирующая точка"  Grid.ColumnSpan="13" XAlign = "Center"	YAlign="Center" FontSize="22" TextColor="White"/>
 
 			    <Label Text="(" XAlign = "Center"	YAlign="Center" 
 			    	Grid.Row="1" Grid.Column="0"  />
-				<Entry x:Name="entryX" Keyboard="Numeric" Placeholder="x0" TextChanged="handler_changedXValidate"
-					Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="5" />
+				  <Entry x:Name="entryX" Keyboard="Numeric" Placeholder="x0" TextChanged="handler_changedXValidate"
+					  Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="5" />
 
 			    <Label Text=";"  XAlign = "Center"	YAlign="Center" 
 			    	 Grid.Row="1" Grid.Column="6"/>
-				<Entry x:Name="entryY" Keyboard="Numeric" Placeholder="y0"  TextChanged="handler_changedYValidate"
-					 Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="5" />
+				  <Entry x:Name="entryY" Keyboard="Numeric" Placeholder="y0"  TextChanged="handler_changedYValidate"
+					   Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="5" />
 
 			    <Label Text=")" XAlign = "Center"	YAlign="Center"
 			    	  Grid.Row="1" Grid.Column="12" />
 
-				<Button Text="Случайная точка" Grid.Row="2" Grid.ColumnSpan="13" IsEnabled="false" 
-					x:Name="genRandomPointButton"
-					Clicked="handler_genRandomPointButtonClick" />
+				  <Button Text="Случайная точка" Grid.Row="2" Grid.ColumnSpan="13" IsEnabled="false" 
+					  x:Name="genRandomPointButton"
+					  Clicked="handler_genRandomPointButtonClick" />
 
 			    <Label Text="Число точек" XAlign = "Center"	YAlign="Center" FontSize="22" TextColor="White"
-			    	Grid.Row="3" Grid.ColumnSpan="13" />
-				<Button Text="Вычислить" 
-					Grid.Row="4" Grid.ColumnSpan="13" IsEnabled="false"
-					x:Name="getCountButton"
-					Clicked="handler_getCountButtonClick" />
+			    	  Grid.Row="3" Grid.ColumnSpan="13" />
+				  <Button Text="Вычислить" 
+					  Grid.Row="4" Grid.ColumnSpan="13" IsEnabled="false"
+					  x:Name="getCountButton"
+					  Clicked="handler_getCountButtonClick" />
 
 			    <Label Text="Всего:"
-			     	XAlign = "Center"	YAlign="Center" FontSize="16"
-			    	Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" />
-				<Entry Keyboard="Numeric" x:Name="labelCountPoints"
-					Placeholder="0" IsEnabled="false"
-					Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="9"/>
-					<!--
+			     	  XAlign = "Center"	YAlign="Center" FontSize="16"
+			    	  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" />
+				  <Entry Keyboard="Numeric" x:Name="labelCountPoints"
+					  Placeholder="0" IsEnabled="false"
+					  Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="9"/>
+				
 			    <Label Text="Порядок 'k':"
-			        XAlign = "Center"	YAlign="Center" FontSize="16"
-			    	Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" />
-				<Entry Keyboard="Numeric"  x:Name="labelOrderK"
-				 Placeholder="0" IsEnabled="false"
-					Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="9" />
-					-->
+			          XAlign = "Center"	YAlign="Center" FontSize="16"
+			    	  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" />
+        
+				  <Entry Keyboard="Numeric"  x:Name="labelOrderK"
+				   Placeholder="0" IsEnabled="false"
+					  Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="9" />
 
-				<Button Text="Операции с выбранной точкой" x:Name="operationsButton" Clicked="handler_operationsButtonClick" 
-					Grid.Row="6" Grid.ColumnSpan="13" IsEnabled="false" />
+				  <Button Text="Операции с выбранной точкой" x:Name="operationsButton" Clicked="handler_operationsButtonClick" 
+					  Grid.Row="7" Grid.ColumnSpan="13" IsEnabled="false" />
 			</Grid>
 
 		</StackLayout>

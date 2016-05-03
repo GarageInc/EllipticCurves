@@ -18,13 +18,13 @@
 
 					    <Label Text="Параметры кривой(a,b,p):" Grid.Column="0" Grid.Row="0"/>
 
-						<Entry Keyboard="Numeric" x:Name="entryA" Text="{Binding a, StringFormat='{0:F0}'}" Placeholder="a =" TextChanged="handler_changedAValidate"  Grid.Column="0" Grid.Row="1"/>
-						<Entry Keyboard="Numeric" x:Name="entryB" Text="{Binding b, StringFormat='{0:F0}'}}" Placeholder="b =" TextChanged="handler_changedBValidate"  Grid.Column="0" Grid.Row="2"/>
-						<Entry Keyboard="Numeric" x:Name="entryP" Text="{Binding FieldChar, StringFormat='{0:F0}'}}" Placeholder="p =" TextChanged="handler_changedPValidate"  Grid.Column="0" Grid.Row="3"/>
+						<Entry Keyboard="Numeric" x:Name="entryA" Placeholder="a =" TextChanged="handler_changedAValidate"  Grid.Column="0" Grid.Row="1"/>
+						<Entry Keyboard="Numeric" x:Name="entryB" Placeholder="b =" TextChanged="handler_changedBValidate"  Grid.Column="0" Grid.Row="2"/>
+						<Entry Keyboard="Numeric" x:Name="entryP" Placeholder="p =" TextChanged="handler_changedPValidate"  Grid.Column="0" Grid.Row="3"/>
 
 						<Label Text="Параметры точки [x;y]:" Grid.Column="0" Grid.Row="4" />
-						<Entry Keyboard="Numeric" x:Name="entryX" Text="{Binding x, StringFormat='{0:F0}'}}" Placeholder="b =" TextChanged="handler_changedXValidate"  Grid.Column="0" Grid.Row="5"/>
-						<Entry Keyboard="Numeric" x:Name="entryY" Text="{Binding y, StringFormat='{0:F0}'}}" Placeholder="p =" TextChanged="handler_changedYValidate"  Grid.Column="0" Grid.Row="6"/>
+						<Entry Keyboard="Numeric" x:Name="entryX" Placeholder="b =" TextChanged="handler_changedXValidate"  Grid.Column="0" Grid.Row="5"/>
+						<Entry Keyboard="Numeric" x:Name="entryY" Placeholder="p =" TextChanged="handler_changedYValidate"  Grid.Column="0" Grid.Row="6"/>
 					</Grid>
 
 				    <Frame OutlineColor="Green" x:Name="frameResult">

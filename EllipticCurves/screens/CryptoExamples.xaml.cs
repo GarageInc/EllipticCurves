@@ -9,116 +9,96 @@ namespace EllipticCurves
 	{
 		StartPage parent;
 
-		ECPoint point;
+		EC curve;
+        
+        List<string> errors = new List<string>();
 
-		string errorP="";
-		string errorA="";
-		string errorB="";
-		string errorX="";
-		string errorY="";
-
-		public CryptoExamples (StartPage page, ECPoint p = null)
+        public CryptoExamples (StartPage page, ECPoint p)
 		{
 			InitializeComponent ();
 
 			parent = page;
 
-			if (p == null) {
-				point = new ECPoint ();
-			} else {
-				point = p;
-			}			
-
-			this.BindingContext = point;
-
+            if (p != null)
+            {
+                curve = p.elliptic_curve;
+                curve.generationPoint = p;
+            }
+            else
+            {
+                curve = new EC();
+            }
+            
 			invalidateGenPoint ();
 		}
 
-		protected void invalidateErrors(){
-			stackResults.Children.Clear ();
+		protected void invalidateErrors()
+        {
+            clearTracing();
 
-			bool isError = point.elliptic_curve.isNotSingular;
+            bool isError = false;
 
-			if ( point.elliptic_curve.isNotSingular ) {
-				trace ("Кривая сингулярная: не выполняется условие 4*a^3 + 27*b^2 = 0, криптографические операции не применимы");
-			} else {
-				trace ("Кривая не сингулярная(гладкая)");
-			}
+            if (curve.p != 0 && curve.isValidatedCoefs)
+            {
+                isError = !curve.isNotSingular;
 
-			if (errorP != "") {
-				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorP,VerticalOptions=LayoutOptions.StartAndExpand });
-				isError = true;
-			}
-			if (errorA != "") {
-				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorA, VerticalOptions=LayoutOptions.StartAndExpand });
-				isError = true;			
-			}
-			if (errorB != "") {
-				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorB,VerticalOptions=LayoutOptions.StartAndExpand });	
-				isError = true;
-			}
-			if (errorX != "") {
-				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorX,VerticalOptions=LayoutOptions.StartAndExpand });	
-				isError = true;
-			}
-			if (errorY != "") {
-				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorY,VerticalOptions=LayoutOptions.StartAndExpand });	
-				isError = true;
-			}
+                if (curve.isNotSingular)
+                {
+                    trace("Кривая не сингулярная(гладкая)", Color.Green);
+                }
+                else
+                {
+                    trace("Кривая сингулярная: не выполняется условие 4*a^3 + 27*b^2 != 0, криптографические операции не применимы", Color.Red);
+                }
+            }
 
-			if (isError) {
-				frameResult.OutlineColor = Color.Red;
-			} else {
-				frameResult.OutlineColor = Color.Green;
-			}
+            if (errors.Count > 0)
+            {
+                isError = true;
 
+                foreach (var e in errors)
+                {
+                    trace(e, Color.Red);
+                }
+
+                errors.Clear();
+            }
+
+            frameResult.OutlineColor = isError ? Color.Red : Color.Green;
 		}
 
 
 		public void invalidateGenPoint(){
-			if (point!=null && point.p != 0) {
+            if (curve.generationPoint.isBelongToCurve())
+            {
+                trace("Точка принадлежит прямой", Color.Green);
+                setButtonsState(true);
+            }
+            else
+            {
 
-				stackResults.Children.Clear ();
+                trace("Точка не принадлежит прямой!", Color.Red);
+                setButtonsState(false);
+            }
+        }
 
-				if (((point.y * point.y) % point.p ) == ((point.x * point.x * point.x + point.x * point.a + point.b) % point.p)) {
-
-					frameResult.OutlineColor = Color.Green;
-					stackResults.Children.Add (new Label {
-						TextColor = Color.Green,
-						Text = "Точка принадлежит прямой.",
-						VerticalOptions = LayoutOptions.StartAndExpand
-					});	
-					setButtonsStates(true);
-				} else {
-
-					frameResult.OutlineColor = Color.Red;
-					stackResults.Children.Add (new Label {
-						TextColor = Color.Red,
-						Text = "Точка не принадлежит прямой!",
-						VerticalOptions = LayoutOptions.StartAndExpand
-					});	
-					setButtonsStates(false);
-				}
-			} else {
-
-				setButtonsStates(false);
-			}
-		}
-
-		public void setButtonsStates( bool state ){
+		public void setButtonsState( bool state ){
 			gost3410Button.IsEnabled = state;
 		}
+        
+        protected void clearTracing()
+        {
+            frameResult.OutlineColor = Color.Green;
+            stackResults.Children.Clear();
+        }
 
+        protected void trace(string message, Color color)
+        {
+            frameResult.OutlineColor = color;
 
-		public void trace(string message){
-
-			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = message,VerticalOptions=LayoutOptions.StartAndExpand });
-		}
-
-		public void traceError(string message){
-
-			stackResults.Children.Add (new Label { TextColor=Color.Red, Text = message,VerticalOptions=LayoutOptions.StartAndExpand });
-		}
+            stackResults.Children.Add(new Label { TextColor = color, Text = message, VerticalOptions = LayoutOptions.StartAndExpand });
+        }
+        
 
 		// HANDLERS
 
@@ -126,11 +106,10 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					point.p = new BigInteger(entryP.Text, 10);
+					curve.p = new BigInteger(entryP.Text, 10);
 				}
-				errorP = "";
 			} catch{
-				errorP = "Неверное значение 'p' = " + entryP.Text;
+				errors.Add("Неверное значение 'p' = " + entryP.Text);
 			} finally{
 				invalidateErrors();
 			}
@@ -139,11 +118,10 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					point.a = new BigInteger(entryA.Text, 10);
+                    curve.a = new BigInteger(entryA.Text, 10);
 				}
-				errorA = "";
 			} catch{
-				errorA = "Неверное значение 'a' = " + entryA.Text;
+                errors.Add("Неверное значение 'a' = " + entryA.Text);
 			} finally{
 				invalidateErrors();
 			}
@@ -153,11 +131,10 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					point.b = new BigInteger(entryB.Text, 10);
+                    curve.b = new BigInteger(entryB.Text, 10);
 				}
-				errorB = "";
 			} catch{
-				errorB = "Неверное значение 'b' = " + entryB.Text;
+                errors.Add("Неверное значение 'b' = " + entryB.Text);
 			} finally{
 				invalidateErrors();
 			}
@@ -167,11 +144,10 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					point.x = new BigInteger(entryX.Text, 10);
+                    curve.generationPoint.x = new BigInteger(entryX.Text, 10);
 				}
-				errorX = "";
 			} catch{
-				errorX = "Неверное значение 'x' = " + entryX.Text;
+                errors.Add("Неверное значение 'x' = " + entryX.Text);
 			} finally{
 				invalidateErrors();
 				invalidateGenPoint ();
@@ -182,82 +158,52 @@ namespace EllipticCurves
 			try{
 				Entry current = sender as Entry;
 				if ( current.Text != null && current.Text != ""){
-					point.y = new BigInteger(entryY.Text, 10);
+                    curve.generationPoint.y = new BigInteger(entryY.Text, 10);
 				}
-				errorY = "";
 			} catch{
-				errorY = "Неверное значение 'y' = " + entryY.Text;
+                errors.Add("Неверное значение 'y' = " + entryY.Text);
 			} finally{
 				invalidateErrors();
 				invalidateGenPoint ();
 			}
 		}
-
-		public BigInteger getRandomPointCoord_y(){
-			l1:
-			BigInteger y = ((startGen * startGen * startGen + startGen * point.a + point.b) % point.p ).sqrt();
-
-			if (((y * y) % point.p) == ((startGen * startGen * startGen + startGen * point.a + point.b) % point.p)) {
-
-				startGen = (startGen+1) % point.p;
-				return y;
-			} else {
-
-				startGen++;
-				startGen = startGen % point.p;
-				goto l1;
-			}
-		}
-
-		BigInteger startGen = 0;
+        
+        
 		public void handler_gost3410ButtonClick(object sender, EventArgs e){
 
-			stackResults.Children.Clear ();
-
-			// Сначала нужно получить порядок точки эллиптической кривой
-			List<ECPoint> points = new List<ECPoint>();
-			ECPoint p = new ECPoint(point);
-
-			int i = 2;
-			while( !Functions.isFirst(points,p) ) {
-
-				if (!Functions.Contains (points, p)) {
-					points.Add (p);
-				}// pass
-
-				p = ECPoint.multiply (i, point);
-				i++;
-			}
-
-			try{
-				int k = points.Count + 1;
-				trace ("0) Порядок точки 'k' = " + k.ToString ());
+            clearTracing();
+			
+			try
+            {
+                // Сначала нужно получить порядок точки эллиптической кривой
+                int k = this.curve.generationPoint.pointsInOrder().Count + 1;
+				trace ("0) Порядок точки 'k' = " + k, Color.Green);
 
 				string message = "'какой-то текст'";
-				trace ("1) Проведём шифрование сообщения " + message);
+				trace ("1) Проведём шифрование сообщения " + message, Color.Green);
 			
-				DSGost DS = new DSGost(point.p, point.a, point.b, k, System.Text.Encoding.Unicode.GetBytes(message));
-				BigInteger d=DS.GenPrivateKey(5);
+				DSGost DS = new DSGost(curve.p, curve.a, curve.b, k, System.Text.Encoding.Unicode.GetBytes(message));
+				BigInteger d=DS.GenPrivateKey(2);
 
-				trace ("2) Сгенерирован приватный ключ 'd'=" + d.ToString ());
+				trace ("2) Сгенерирован приватный ключ 'd'=" + d, Color.Green);
 				ECPoint Q = DS.GenPublicKey(d);  
-				trace ("3) Сгенерирован публичный от 'd' ключ 'Q' = " + Q.ToString ());
+				trace ("3) Сгенерирован публичный от 'd' ключ 'Q' = " + Q, Color.Green);
 
-				trace("4) ...генерируем хеш ГОСТ...");
+				trace("4) ...генерируем хеш ГОСТ...", Color.Green);
 				GOST hash = new GOST(256);
 				byte[] H = hash.GetHash(System.Text.Encoding.Unicode.GetBytes("Message"));
 
-				trace ("5) Получен ГОСТ-хэш(от сообщения) 'H' = " + System.Text.Encoding.Unicode.GetString(H,0,H.Length));
+				trace ("5) Получен ГОСТ-хэш(от сообщения) 'H' = " + System.Text.Encoding.Unicode.GetString(H,0,H.Length), Color.Green);
 
 				string sign  = DS.SignGen(H, d);
-				trace ("6) Получена цифровая подпись (по секретному ключу 'd') 'sign' = " + sign);
+				trace ("6) Получена цифровая подпись (по секретному ключу 'd') 'sign' = " + sign, Color.Green);
 
 
 				bool result = DS.SignVer(H, sign, Q);  
-				trace ("7) Удалось ли провести верификацию(с открытым ключом 'Q')? :" + (result ? "да" : "нет"));
+				trace ("7) Удалось ли провести верификацию(с открытым ключом 'Q')? :" + (result ? "да" : "нет"), Color.Green);
 			} catch(Exception er){
 				
-				traceError ("Случилась какая-то ошибка в формировании ключа. Вы всё ввели правильно?");
+				trace ("Случилась какая-то ошибка в формировании ключа. Вы всё ввели правильно?",Color.Red);
 			}
 		}
 	}

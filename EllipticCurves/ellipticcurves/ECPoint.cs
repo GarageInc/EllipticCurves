@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace EllipticCurves
 {
@@ -14,8 +16,8 @@ namespace EllipticCurves
 		{
 			elliptic_curve = p.elliptic_curve;
 
-			x = p.x;
-			y = p.y;
+			x = new BigInteger(p.x);
+			y = new BigInteger(p.y);
 		}
 
 		public ECPoint(EC curve)
@@ -74,15 +76,28 @@ namespace EllipticCurves
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
-
+        
         public static bool operator ==(ECPoint a, ECPoint b)
         {
-            return a.x == b.x && a.y==b.y;
+            // If both are null, or both are same instance, return true.
+            if (System.Object.ReferenceEquals(a, b))
+            {
+                return true;
+            }
+
+            // If one is null, but not both, return false.
+            if (((object)a == null) || ((object)b == null))
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return a.x == b.x && a.y == b.y;
         }
 
         public static bool operator !=(ECPoint a, ECPoint b)
         {
-            return a.x != b.x || a.y != b.y;
+            return !(a == b);
         }
 
         public bool  isValidatedAll => b != 0 && a != 0 && (x != 0 || y != 0) && p != 0;
@@ -196,6 +211,29 @@ namespace EllipticCurves
 		public override string ToString(){
 			return "[ " + x.ToString () + " ; " + y.ToString () + " ]";
 		}
+
+	    public List<ECPoint> pointsInOrder()
+	    {
+            List<ECPoint> points = new List<ECPoint>();
+            ECPoint point = new ECPoint(this);
+
+            int i = 2;
+	        string result = "";
+	        do
+	        {
+
+	            if (!Functions.Contains(points, point))
+	            {
+	                result += point + "";
+	                points.Add(point);
+	            } // pass
+
+	            point = ECPoint.multiply(i, this);
+	            i++;
+	        } while (points.First() != point);
+
+            return points;
+	    }
 	}
 }
 

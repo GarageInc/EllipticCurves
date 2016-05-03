@@ -40,33 +40,48 @@ namespace EllipticCurves
 
 			string text = "EC: Y^2 = X^3";
 			if (point.a != 0) {
-				text += String.Format ("+{0:F0}*X", point.a);
+				text += $"+{point.elliptic_curve.a:F0}*X";
 			}
 
 			if (point.b != 0) {
-				text += String.Format ("+{0:F0}", point.b);
+				text += $"+{point.elliptic_curve.b:F0}";
 			}
 
 			labelEC.Text = text;
-			labelPoint.Text = String.Format ("Генерирующая точка [{0:F0} ; {1:F0}])", point.x, point.y);
+			labelPoint.Text = $"Генерирующая точка [{point.x:F0} ; {point.y:F0}])";
 		}
 
+        protected void clearTracing()
+        {
+            frameResult.OutlineColor = Color.Green;
+            stackResults.Children.Clear();
+        }
+        
+        protected void trace(string message, Color color)
+        {
 
-		protected void invalidateErrors(){
-			stackResults.Children.Clear ();
+            frameResult.OutlineColor = color;
 
-			bool isError = false;
+            stackResults.Children.Add(new Label { TextColor = color, Text = message, VerticalOptions = LayoutOptions.StartAndExpand });
+        }
+
+        protected void invalidateErrors()
+        {
+            clearTracing();
+
+            var isError = false;
 
 			if (errorX != "") {
-				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorX,VerticalOptions=LayoutOptions.StartAndExpand });	
-				isError = true;
+                trace(errorX, Color.Red);
+                isError = true;
 			}
-			if (errorY != "") {
-				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorY,VerticalOptions=LayoutOptions.StartAndExpand });	
-				isError = true;
+			if (errorY != "")
+            {
+                trace(errorY, Color.Red);
+                isError = true;
 			}
 			if (errorZ != "") {
-				stackResults.Children.Add (new Label { TextColor=Color.Red, Text = errorZ,VerticalOptions=LayoutOptions.StartAndExpand });	
+                trace(errorZ, Color.Red);	
 				isError = true;
 			}
 
@@ -76,14 +91,13 @@ namespace EllipticCurves
 
 		protected void addECtoFrame(ECPoint p){
 
-			string result = getEtoString (p);
+            clearTracing();
 
-			stackResults.Children.Clear ();
-
+            string result = getEtoString (p);
+            
 			result = p.ToString();
-			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = result, VerticalOptions=LayoutOptions.StartAndExpand });
 
-			frameResult.OutlineColor = Color.Green;
+            trace(result,Color.Green);
 		}
 
 		// HANDLERS
@@ -157,36 +171,39 @@ namespace EllipticCurves
 		}
 
 		protected void handler_buttonDoublingClick(object sender, EventArgs e)
-		{
-			ECPoint doubling = ECPoint.Double (point);
+        {
+            trace("Удвоение:", Color.Green);
 
-			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = "Удвоение:", VerticalOptions=LayoutOptions.StartAndExpand });
+            ECPoint doubling = ECPoint.Double (point);
+            
 			addECtoFrame (doubling);
 		}
 
 		protected void handler_buttonAdditionClick(object sender, EventArgs e)
-		{
-			additionPoint.x = additionPoint.x % point.p;
+        {
+            trace("Сложение точек:", Color.Green);
+
+            additionPoint.x = additionPoint.x % point.p;
 			additionPoint.y = additionPoint.y % point.p;
 
 			var resultPoint = point + additionPoint;
 
-			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = "Сложение точек:", VerticalOptions=LayoutOptions.StartAndExpand });
-			addECtoFrame (resultPoint);
+            addECtoFrame (resultPoint);
 		}
 
 		protected void handler_buttonMultClick(object sender, EventArgs e)
-		{
-			var resultPoint = ECPoint.multiply(z,point);
+        {
+            trace("Умножение на число:", Color.Green);
 
-			stackResults.Children.Add (new Label { TextColor=Color.Green, Text = "Умножение на число:", VerticalOptions=LayoutOptions.StartAndExpand });
+            var resultPoint = ECPoint.multiply(z,point);
+
 			addECtoFrame (resultPoint);
 		}
 
 
 		private void handler_buttonCryptoClick(object sender, EventArgs e)
 		{
-			this.Navigation.PushAsync(new CryptoExamples(parent, point));
+			this.Navigation.PushAsync( new CryptoExamples( parent, point ) );
 		}
 
 	}

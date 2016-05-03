@@ -21,10 +21,7 @@ namespace EllipticCurves
 			b = 0;
 			p = 0;
 
-		    generationPoint = new ECPoint
-		    {
-		        elliptic_curve = this
-		    };
+            generationPoint = new ECPoint(this);
 		}
 
 	    protected BigInteger findY(BigInteger second)
@@ -65,14 +62,14 @@ namespace EllipticCurves
 
             if (p != 0)
             {
-                generationPoint.y = getRandomPointCoord_y();
-                generationPoint.x = startGen - 1;// imprortant!
+                generationPoint.y = new BigInteger(getRandomPointCoord_y());
+                generationPoint.x = new BigInteger(startGen - 1);// imprortant!
             }
 
 		    var newPoint = new ECPoint
 		    {
-		        x = generationPoint.x,
-		        y = generationPoint.y,
+		        x = new BigInteger(generationPoint.x),
+		        y = new BigInteger(generationPoint.y),
 		        elliptic_curve = generationPoint.elliptic_curve
 		    };
 
@@ -90,8 +87,8 @@ namespace EllipticCurves
             points.Add( point );
             points.Add(new ECPoint
             {
-                x = point.x,
-                y = (-1) * point.y
+                x = new BigInteger(point.x),
+                y = (-1) * new BigInteger(point.y)
             });
             
             BigInteger counter = 0;
@@ -102,8 +99,8 @@ namespace EllipticCurves
                 points.Add( point );
                 points.Add(new ECPoint
                 {
-                    x=point.x,
-                    y=(-1)*point.y
+                    x= new BigInteger(point.x),
+                    y=(-1)* new BigInteger(point.y)
                 });
 
                 counter++;
