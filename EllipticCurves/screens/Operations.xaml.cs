@@ -17,7 +17,7 @@ namespace EllipticCurves
 		string errorY="";
 		string errorZ="";
 
-		public Operations (StartPage page, ECPoint param)
+		public Operations (StartPage page, ECPoint sended_point)
 		{
 			InitializeComponent ();
 
@@ -25,17 +25,13 @@ namespace EllipticCurves
 
 			additionPoint = new ECPoint ();
 
-			if (param != null) {
+			point = sended_point ?? new ECPoint ();
 
-				point = param;
-			} else {
+		    additionPoint.elliptic_curve = point.elliptic_curve; 
 
-				point = new ECPoint ();
-			}
-
-			additionPoint.a = point.a;
-			additionPoint.b = point.b;
-			additionPoint.p = point.p;
+            additionPoint.elliptic_curve.a = point.elliptic_curve.a;
+			additionPoint.elliptic_curve.b = point.elliptic_curve.b;
+			additionPoint.elliptic_curve.p = point.elliptic_curve.p;
 
 			this.BindingContext = point;
 
@@ -74,13 +70,7 @@ namespace EllipticCurves
 				isError = true;
 			}
 
-			if (isError) {
-				frameResult.OutlineColor = Color.Red;		
-				//buttonDoubling.IsEnabled = false;
-			} else {
-				frameResult.OutlineColor = Color.Green;
-				//buttonDoubling.IsEnabled = true;
-			}
+			frameResult.OutlineColor = isError ? Color.Red : Color.Green;
 		}
 
 

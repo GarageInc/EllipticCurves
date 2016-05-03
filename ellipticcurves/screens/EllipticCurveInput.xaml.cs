@@ -24,6 +24,12 @@ namespace EllipticCurves
 			invalidateErrors ();
 		}
 
+	    protected void clearTracing()
+	    {
+            frameResult.OutlineColor = Color.Green;
+            stackResults.Children.Clear();
+        }
+
 		protected void trace(string message, Color color){
 
 			frameResult.OutlineColor = color;
@@ -32,11 +38,11 @@ namespace EllipticCurves
 		}
 
 		protected void invalidateErrors(){
-			stackResults.Children.Clear ();
+            clearTracing();
 
 		    bool isError = false;
 
-		    if (curve.p != 0)
+		    if (curve.p != 0 && curve.isValidatedCoefs )
 		    {
 		        isError = !curve.isNotSingular;
 
@@ -50,11 +56,11 @@ namespace EllipticCurves
                 }
             }
 
-			if (errors.Count > 0) {
+			if ( errors.Count > 0) {
 				isError = true;
 
-				foreach (string e in errors) {
-					trace (e, Color.Red);
+				foreach ( var e in errors ) {
+					trace ( e, Color.Red );
 				}
 
 				errors.Clear ();
@@ -64,7 +70,7 @@ namespace EllipticCurves
 
 			genRandomPointButton.IsEnabled = curve.generationPoint.isBelongToCurve() && !isError;
 
-			operationsButton.IsEnabled = curve.generationPoint.validatedAll && !isError;
+			operationsButton.IsEnabled = curve.generationPoint.isValidatedAll && !isError;
             
 			labelCountPoints.Text = "";
 		}
@@ -85,8 +91,6 @@ namespace EllipticCurves
 
 
 		// HANDLERS
-
-
 		public void handler_changedPValidate(object sender, EventArgs e){
 			try{
 				Entry current = sender as Entry;
@@ -177,11 +181,11 @@ namespace EllipticCurves
 				outputS += p + " ";
 			}
 
-			stackResults.Children.Clear ();
+            clearTracing();
 
-			trace (outputS, Color.Green);
+            trace (outputS, Color.Green);
 
-			labelCountPoints.Text = points.Count + "( 1 бесконечная )";
+			labelCountPoints.Text = points.Count + "( +1 бесконечная )";
 		}
 			
 

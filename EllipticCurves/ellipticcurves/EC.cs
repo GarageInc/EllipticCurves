@@ -12,9 +12,10 @@ namespace EllipticCurves
 		public BigInteger p {get; set;}
 
 		public ECPoint generationPoint{ get; set; }
-        
 
-		public EC ()
+        public bool isValidatedCoefs => b != 0 && a != 0 && p != 0;
+
+        public EC ()
 		{
 			a = 0;
 			b = 0;
@@ -86,14 +87,13 @@ namespace EllipticCurves
 
             var point = getNext();
 
-            points.Add( getNext() );
+            points.Add( point );
             points.Add(new ECPoint
             {
                 x = point.x,
                 y = (-1) * point.y
             });
-
-
+            
             BigInteger counter = 0;
             do
             {
@@ -107,7 +107,12 @@ namespace EllipticCurves
                 });
 
                 counter++;
-            } while ( points[0] != points[points.Count-2] && counter < p);
+
+                if (points[points.Count - 2] == points.Last())
+                {
+                    points.Remove(points.Last());
+                }
+            } while ( points[0] != point && counter < p );
 
 	        points.Remove( points.Last() );
             points.Remove(points.Last());

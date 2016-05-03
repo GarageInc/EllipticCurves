@@ -30,6 +30,8 @@ namespace EllipticCurves
         {
             y = new BigInteger();
             x = new BigInteger();
+
+            elliptic_curve = new EC();
         }
         
 		public BigInteger a
@@ -83,20 +85,12 @@ namespace EllipticCurves
             return a.x != b.x || a.y != b.y;
         }
 
-        public bool  validatedAll{
-			get {
-				return b != 0 && a != 0 && (x != 0 || y != 0) && p != 0;
-			}
-		}
+        public bool  isValidatedAll => b != 0 && a != 0 && (x != 0 || y != 0) && p != 0;
 
-		public bool  validatedCoefs{
-			get {
-				return b != 0 && a != 0 && p != 0;
-			}
-		}
+	    public bool  isValidatedCoefs => b != 0 && a != 0 && p != 0;
 
 
-		public bool isBelongToCurve(){
+	    public bool isBelongToCurve(){
 
 			if (p == 0) {
 				return false;
