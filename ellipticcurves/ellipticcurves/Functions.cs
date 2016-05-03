@@ -9,6 +9,20 @@ namespace EllipticCurves
 		{
 		}
 
+	    public static bool IsSimple(BigInteger p)
+	    {
+	        for (var i = 2; i < p.sqrt(); i++)
+	        {
+	            var div = p/i;
+	            if (div*i==p)
+	            {
+	                return false;
+	            }
+	        }
+
+	        return true;
+	    }
+
 		// Расширенный алгоритм Евклида
 		private static void AdvancedEuclidAlgorithm(BigInteger a, BigInteger b, out BigInteger x, out BigInteger y, out BigInteger d)
 		{

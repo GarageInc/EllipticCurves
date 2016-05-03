@@ -214,10 +214,14 @@ namespace EllipticCurves
 			return "[ " + x.ToString () + " ; " + y.ToString () + " ]";
 		}
 
-	    public List<ECPoint> pointsInOrder()
+	    public BigInteger countPointsInOrder()
 	    {
+	        BigInteger count = 0;
+
             List<ECPoint> points = new List<ECPoint>();
             ECPoint point = new ECPoint(this);
+
+	        bool isChanged = false;
 
             int i = 2;
 	        string result = "";
@@ -227,21 +231,26 @@ namespace EllipticCurves
 	            {
 	                result += point + "";
 	                points.Add(point);
+	                count++;
 	            } // pass
-
-	            //if (point.y == 0)
+                
+	            if (point.y != 0)
 	            {
-	              //  break;
+	                point = multiply(i, this);
+	            }
+	            else
+	            {
+	                if (!isChanged)
+                    {
+                        count++;
+                        isChanged = true;
+                    }
 	            }
 
-	            if (point.y != 0)
-                {
-                    point = multiply(i, this);
-                }
 	            i++;
 	        } while (points.First() != point && i < p+2);
 
-            return points;
+            return (count+1);
 	    }
 	}
 }

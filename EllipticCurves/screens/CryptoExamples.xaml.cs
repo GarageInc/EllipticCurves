@@ -72,7 +72,44 @@ namespace EllipticCurves
             if (curve.generationPoint.isBelongToCurve())
             {
                 trace("Точка принадлежит прямой", Color.Green);
-                setButtonsState(true);
+
+                var totalPointsCount = curve.GetAllPoints().Count + 1;
+                BigInteger countInOrders = curve.generationPoint.countPointsInOrder();
+                
+                var h = totalPointsCount / countInOrders;
+
+
+                if (!Functions.IsSimple(countInOrders))
+                {
+                    trace("Порядок точки - НЕ простое число!", Color.Red);
+                    setButtonsState(false);
+
+                    return ;
+                }
+
+                if ((h * countInOrders) == totalPointsCount && h > 0 && h < 6)
+                {
+                    trace(
+                        "Условие выполняется: " + totalPointsCount + " = " + h + " * " + countInOrders +
+                        ", где второй множитель - порядок генерирующей точки", Color.Green);
+
+                    if (totalPointsCount != countInOrders)
+                    {
+                        trace("Проверка условия: " + totalPointsCount + " != " + countInOrders, Color.Green);
+                        setButtonsState(true);
+                    }
+                    else
+                    {
+                        trace("Ошибка условия: ошибочно, что " + totalPointsCount + " != " + countInOrders, Color.Red);
+                        setButtonsState(false);
+                    }
+                }
+                else
+                {
+                    trace("Условие НЕ выполняется: " + totalPointsCount + " = " + h + " * " + countInOrders +
+                        ", где второй множитель - порядок генерирующей точки", Color.Red);
+                    setButtonsState(false);
+                }
             }
             else
             {
@@ -82,7 +119,13 @@ namespace EllipticCurves
             }
         }
 
-		public void setButtonsState( bool state ){
+        void clearPointEntries()
+        {
+            entryX.Text = "";
+            entryY.Text = "";
+        }
+
+        public void setButtonsState( bool state ){
 			gost3410Button.IsEnabled = state;
 		}
         
@@ -95,58 +138,64 @@ namespace EllipticCurves
         protected void trace(string message, Color color)
         {
             frameResult.OutlineColor = color;
-
             stackResults.Children.Add(new Label { TextColor = color, Text = message, VerticalOptions = LayoutOptions.StartAndExpand });
         }
         
 
 		// HANDLERS
 
-		public void handler_changedPValidate(object sender, EventArgs e){
-			try{
-				Entry current = sender as Entry;
-				if ( current.Text != null && current.Text != ""){
-					curve.p = new BigInteger(entryP.Text, 10);
-				}
-			} catch{
+		public void handler_changedPValidate(object sender, EventArgs e)
+        {
+            clearPointEntries();
+            try
+			{
+			    Entry current = sender as Entry;
+			    curve.p = !string.IsNullOrEmpty(current.Text) ? new BigInteger(entryP.Text, 10) : 0;
+			}
+			catch{
 				errors.Add("Неверное значение 'p' = " + entryP.Text);
 			} finally{
 				invalidateErrors();
 			}
 		}
-		public void handler_changedAValidate(object sender, EventArgs e){
-			try{
-				Entry current = sender as Entry;
-				if ( current.Text != null && current.Text != ""){
-                    curve.a = new BigInteger(entryA.Text, 10);
-				}
-			} catch{
+		public void handler_changedAValidate(object sender, EventArgs e)
+        {
+            clearPointEntries();
+            try
+			{
+			    Entry current = sender as Entry;
+			    curve.a = !string.IsNullOrEmpty(current.Text) ? new BigInteger(entryA.Text, 10) : 0;
+			}
+			catch{
                 errors.Add("Неверное значение 'a' = " + entryA.Text);
 			} finally{
 				invalidateErrors();
 			}
 		}
 
-		public void handler_changedBValidate(object sender, EventArgs e){
-			try{
-				Entry current = sender as Entry;
-				if ( current.Text != null && current.Text != ""){
-                    curve.b = new BigInteger(entryB.Text, 10);
-				}
-			} catch{
+		public void handler_changedBValidate(object sender, EventArgs e)
+        {
+            clearPointEntries();
+            try
+			{
+			    Entry current = sender as Entry;
+			    curve.b = !string.IsNullOrEmpty(current.Text) ? new BigInteger(entryB.Text, 10) : 0;
+			}
+			catch{
                 errors.Add("Неверное значение 'b' = " + entryB.Text);
 			} finally{
 				invalidateErrors();
 			}
 		}
 
-		public void handler_changedXValidate(object sender, EventArgs e){
-			try{
-				Entry current = sender as Entry;
-				if ( current.Text != null && current.Text != ""){
-                    curve.generationPoint.x = new BigInteger(entryX.Text, 10);
-				}
-			} catch{
+		public void handler_changedXValidate(object sender, EventArgs e)
+        {
+            try
+            {
+                Entry current = sender as Entry;
+                curve.generationPoint.x = !string.IsNullOrEmpty(current.Text) ? new BigInteger(entryX.Text, 10) : 0;
+            }
+            catch{
                 errors.Add("Неверное значение 'x' = " + entryX.Text);
 			} finally{
 				invalidateErrors();
@@ -154,13 +203,14 @@ namespace EllipticCurves
 			}
 		}
 
-		public void handler_changedYValidate(object sender, EventArgs e){
-			try{
-				Entry current = sender as Entry;
-				if ( current.Text != null && current.Text != ""){
-                    curve.generationPoint.y = new BigInteger(entryY.Text, 10);
-				}
-			} catch{
+		public void handler_changedYValidate(object sender, EventArgs e)
+        {
+            try
+            {
+                Entry current = sender as Entry;
+                curve.generationPoint.y = !string.IsNullOrEmpty(current.Text) ? new BigInteger(entryY.Text, 10) : 0;
+            }
+            catch{
                 errors.Add("Неверное значение 'y' = " + entryY.Text);
 			} finally{
 				invalidateErrors();
@@ -176,7 +226,7 @@ namespace EllipticCurves
 			try
             {
                 // Сначала нужно получить порядок точки эллиптической кривой
-                int k = this.curve.generationPoint.pointsInOrder().Count + 1;
+                BigInteger k = this.curve.generationPoint.countPointsInOrder();
 				trace ("0) Порядок точки 'k' = " + k, Color.Green);
 
 				string message = "'какой-то текст'";

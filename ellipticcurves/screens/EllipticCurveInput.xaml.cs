@@ -79,13 +79,11 @@ namespace EllipticCurves
 			if (curve.generationPoint.isBelongToCurve()) {
 
 				trace ("Точка принадлежит прямой", Color.Green);
-				operationsButton.IsEnabled = true;
-			} else {
+            } else {
 
 				trace ("Точка не принадлежит прямой!", Color.Red);
-				operationsButton.IsEnabled = false;
 			}
-		}
+        }
 
 
 		// HANDLERS
@@ -167,6 +165,9 @@ namespace EllipticCurves
 	    {
 	        entryX.Text = "";
 	        entryY.Text = "";
+
+	        labelOrderK.Text = "";
+	        labelCountPoints.Text = "";
 	    }
 
 		private void handler_genRandomPointButtonClick(object sender, EventArgs e)
@@ -203,12 +204,42 @@ namespace EllipticCurves
 
             trace (outputS, Color.Green);
 
-			labelCountPoints.Text = points.Count + "( +1 бесконечная )";
+	        var totalPointsCount = points.Count + 1;
+
+            labelCountPoints.Text = totalPointsCount + "( 1 бесконечная )";
 
             setGenerationPoint();
-            points = curve.generationPoint.pointsInOrder();
 
-		    labelOrderK.Text = (points.Count+1).ToString();
+	        BigInteger countInOrders = curve.generationPoint.countPointsInOrder();
+            labelOrderK.Text = countInOrders.ToString();
+
+	        if (!Functions.IsSimple(countInOrders))
+	        {
+	            trace("Порядок точки - НЕ простое число!", Color.Red);
+	            return;
+	        }
+
+            var h = totalPointsCount / countInOrders;
+	        if ((h * countInOrders) == totalPointsCount && h > 0 && h < 6)
+	        {
+	            trace(
+	                "Условие выполняется: " + totalPointsCount + " = " + h + " * " + countInOrders +
+	                ", где второй множитель - порядок генерирующей точки", Color.Green);
+
+	            if (totalPointsCount != countInOrders)
+	            {
+                    trace("Проверка условия: " + totalPointsCount + " != " + countInOrders,Color.Green);
+	            }
+	            else
+	            {
+                    trace("Ошибка условия: ошибочно, что " + totalPointsCount + " != " + countInOrders, Color.Red);
+                }
+	        }
+	        else
+	        {
+                trace("Условие НЕ выполняется: " + totalPointsCount + " = " + h + " * " + countInOrders +
+                    ", где второй множитель - порядок генерирующей точки", Color.Red);
+	        }
 		}
 			
 
