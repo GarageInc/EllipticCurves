@@ -5,10 +5,14 @@ C:\Data\cross\EllipticCurves\EllipticCurves\bin\Release\Xamarin.Forms.Xaml.dll
 C:\Data\cross\EllipticCurves\EllipticCurves\bin\Release\Xamarin.Forms.Core.xml
 C:\Data\cross\EllipticCurves\EllipticCurves\bin\Release\Xamarin.Forms.Xaml.xml
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\EllipticCurves.csprojResolveAssemblyReference.cache
+C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\Info.xaml.g.cs
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\StartPage.xaml.g.cs
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\Calculator.xaml.g.cs
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\Error.xaml.g.cs
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\EllipticCurveInput.xaml.g.cs
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\Operations.xaml.g.cs
+C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\CryptoExamples.xaml.g.cs
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\EllipticCurves.dll
 C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\EllipticCurves.pdb
+C:\Data\cross\EllipticCurves\EllipticCurves\obj\Release\EllipticCurves.dll.mdb
+C:\Data\cross\EllipticCurves\EllipticCurves\bin\Release\EllipticCurves.dll.mdb

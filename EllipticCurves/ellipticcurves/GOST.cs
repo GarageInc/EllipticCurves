@@ -146,7 +146,7 @@ namespace EllipticCurves
 
 		public int outLen = 0;
 
-		public GOST(int outputLenght)
+		public GOST(int outputLenght=256)
 		{
 			if (outputLenght == 512)
 			{

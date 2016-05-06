@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.ellipticcurves" android:installLocation="auto">
   <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="19" />
   <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <application android:icon="@drawable/main_icon" android:label="Эллиптические кривые 1.0" android:name="mono.android.app.Application" android:allowBackup="true" android:debuggable="true">
-    <activity android:configChanges="orientation|screenSize" android:icon="@drawable/icon" android:label="EllipticCurves.Droid" android:name="md532b47c474ce5783493971d65044926ad.MainActivity">
+    <activity android:configChanges="orientation|screenSize" android:icon="@drawable/main_icon" android:label="Эллиптические кривые в криптографии" android:name="md532b47c474ce5783493971d65044926ad.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />

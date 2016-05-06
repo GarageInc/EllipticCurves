@@ -9,7 +9,7 @@
 			    		Font="32" VerticalOptions="StartAndExpand"/>
 			    	<Button Text="Криптография на ЭК" x:Name="cryptoButton" Clicked="handler_buttonCryptoClick"
 			    		Font="32"  VerticalOptions="StartAndExpand"/>
-			    	<Button Text="Справка" x:Name="moreButton"
+			    	<Button Text="Справка" x:Name="infoButton" Clicked="handler_buttonInfoClick"
 			    		Font="32"  VerticalOptions="StartAndExpand"/>
 		    </StackLayout>
 	</ScrollView>

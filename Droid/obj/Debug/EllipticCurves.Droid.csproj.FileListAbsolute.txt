@@ -24,5 +24,6 @@ C:\Data\cross\EllipticCurves\Droid\obj\Debug\res\drawable-xxhdpi\icon.png
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\res\drawable\main_icon.png
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\R.cs.flag
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\uploadflags.txt
+C:\Data\cross\EllipticCurves\Droid\bin\Debug\EllipticCurves.dll.mdb
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\EllipticCurves.Droid.dll.mdb
 C:\Data\cross\EllipticCurves\Droid\bin\Debug\EllipticCurves.Droid.dll.mdb

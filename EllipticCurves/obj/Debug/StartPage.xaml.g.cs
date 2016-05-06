@@ -22,14 +22,14 @@ namespace EllipticCurves {
         
         private Button cryptoButton;
         
-        private Button moreButton;
+        private Button infoButton;
         
         private void InitializeComponent() {
             this.LoadFromXaml(typeof(StartPage));
             calculatorButton = this.FindByName<Button>("calculatorButton");
             ellipticButton = this.FindByName<Button>("ellipticButton");
             cryptoButton = this.FindByName<Button>("cryptoButton");
-            moreButton = this.FindByName<Button>("moreButton");
+            infoButton = this.FindByName<Button>("infoButton");
         }
     }
 }

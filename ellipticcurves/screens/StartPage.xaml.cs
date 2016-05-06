@@ -26,6 +26,13 @@ namespace EllipticCurves
 		{
 			this.Navigation.PushAsync(new CryptoExamples(this, new ECPoint()));
 		}
-	}
+
+	    protected void handler_buttonInfoClick(object sender, EventArgs e)
+	    {
+
+            this.Navigation.PushAsync(new Info(this));
+        }
+
+    }
 }
 

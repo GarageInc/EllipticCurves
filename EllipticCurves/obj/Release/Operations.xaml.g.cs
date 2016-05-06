@@ -16,6 +16,10 @@ namespace EllipticCurves {
     
     public partial class Operations : ContentPage {
         
+        private Label labelEC;
+        
+        private Label labelPoint;
+        
         private Button buttonDoubling;
         
         private Frame frameResult;
@@ -34,6 +38,8 @@ namespace EllipticCurves {
         
         private void InitializeComponent() {
             this.LoadFromXaml(typeof(Operations));
+            labelEC = this.FindByName<Label>("labelEC");
+            labelPoint = this.FindByName<Label>("labelPoint");
             buttonDoubling = this.FindByName<Button>("buttonDoubling");
             frameResult = this.FindByName<Frame>("frameResult");
             stackResults = this.FindByName<StackLayout>("stackResults");

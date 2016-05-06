@@ -36,7 +36,7 @@ namespace EllipticCurves {
         
         private Entry labelCountPoints;
         
-        private Label labelOrderK;
+        private Entry labelOrderK;
         
         private Button operationsButton;
         
@@ -52,7 +52,7 @@ namespace EllipticCurves {
             genRandomPointButton = this.FindByName<Button>("genRandomPointButton");
             getCountButton = this.FindByName<Button>("getCountButton");
             labelCountPoints = this.FindByName<Entry>("labelCountPoints");
-            labelOrderK = this.FindByName<Label>("labelOrderK");
+            labelOrderK = this.FindByName<Entry>("labelOrderK");
             operationsButton = this.FindByName<Button>("operationsButton");
         }
     }

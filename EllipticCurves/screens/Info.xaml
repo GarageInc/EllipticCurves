@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="EllipticCurves.Info">
+	<ScrollView>
+			 <StackLayout Padding="10, 10, 10, 10">
+         <WebView Source="https://github.com/GarageInc/EllipticCurves" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"></WebView>
+         
+				<Label Font="22" Text="Эллиптические кривые в криптографии - свободно распространяемое приложение, не преследующее каких-либо коммерческих целей и доступное для внесения изменений любым участником проекта"
+						BackgroundColor="Black" 
+						VerticalOptions="StartAndExpand" 
+						XAlign = "Center"/>
+
+         <Label Font="22" Text="Лицензия - MIT License"
+						BackgroundColor="Black"
+						VerticalOptions="StartAndExpand"
+						XAlign = "Center"/>
+
+         <Label Font="22" Text="Какие-либо вопросы адресовать: vk.com/kazan_rinat"
+						BackgroundColor="Black"
+						VerticalOptions="StartAndExpand"
+						XAlign = "Center"/>
+
+       </StackLayout>
+	</ScrollView>
+</ContentPage>

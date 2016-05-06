@@ -231,8 +231,9 @@ namespace EllipticCurves
 
 				string message = "'какой-то текст'";
 				trace ("1) Проведём шифрование сообщения " + message, Color.Green);
-			
-				DSGost DS = new DSGost(curve.p, curve.a, curve.b, k, System.Text.Encoding.Unicode.GetBytes(message));
+
+                // "03188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012"
+                DSGost DS = new DSGost(curve.p, curve.a, curve.b, k, System.Text.Encoding.Unicode.GetBytes(message));
 				BigInteger d=DS.GenPrivateKey(2);
 
 				trace ("2) Сгенерирован приватный ключ 'd'=" + d, Color.Green);
@@ -240,7 +241,7 @@ namespace EllipticCurves
 				trace ("3) Сгенерирован публичный от 'd' ключ 'Q' = " + Q, Color.Green);
 
 				trace("4) ...генерируем хеш ГОСТ...", Color.Green);
-				GOST hash = new GOST(256);
+				GOST hash = new GOST();
 				byte[] H = hash.GetHash(System.Text.Encoding.Unicode.GetBytes("Message"));
 
 				trace ("5) Получен ГОСТ-хэш(от сообщения) 'H' = " + System.Text.Encoding.Unicode.GetString(H,0,H.Length), Color.Green);
