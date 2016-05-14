@@ -50,3 +50,8 @@ Droid/obj/Debug/assemblies/EllipticCurves.Droid.dll.mdb
 *.csproj
 ellipticcurves/obj/Debug/EllipticCurves.csproj.FileListAbsolute.txt
 EllipticCurves/obj/Debug/EllipticCurveInput.xaml.g.cs
+*.docx
+Text/Instructions/Tezis_example.jpg
+*.doc
+Text/Project_images/1.jpg
+*.jpg
