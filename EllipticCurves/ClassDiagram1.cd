@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EllipticCurves.BigInteger" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAECMIEkgAHQAAAE4AWLp4iCAkIAAJICYgwSAAAAJyA=</HashCode>
+      <FileName>ellipticcurves\BigInteger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.Config" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ellipticcurves\Config.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.DSGost" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAAQAAAAAAAAAAAABAAAAAAAQgEUAACAASKAA=</HashCode>
+      <FileName>ellipticcurves\DSGost.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.EC" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAABAAAACAEAAAAgAUAGAEAAAAA=</HashCode>
+      <FileName>ellipticcurves\EC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.ECPoint" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgIAAAAEAAAEQAAAgAAAgQACAAAgAUBkAAAAAiI=</HashCode>
+      <FileName>ellipticcurves\ECPoint.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EllipticCurves.Functions" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAIAAAAAAAAgAIAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>ellipticcurves\Functions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.GOST" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAIQAAAAEAAAABAAAAADAAAAohTAIEA=</HashCode>
+      <FileName>ellipticcurves\GOST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.App" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EllipticCurves.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.Calculator" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAABQAAAAAAAAUAAgAAAAEEBgAQGEAAA=</HashCode>
+      <FileName>screens\Calculator.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.CryptoExamples" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAIAAAAAAgAABAAAEAAAAAEACAIAGAwQEAQAAAAAA=</HashCode>
+      <FileName>screens\CryptoExamples.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.EllipticCurveInput" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAAAAAgAABAAAFCAAAAEACAIAGAwQEAEIAAAAA=</HashCode>
+      <FileName>screens\EllipticCurveInput.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.Error" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>screens\Error.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.Info" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>screens\Info.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.Operations" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAACAADQAAABAAAEAAAAAEAAAAAAAoWEAAQIEAAA=</HashCode>
+      <FileName>screens\Operations.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EllipticCurves.StartPage" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAIAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>screens\StartPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

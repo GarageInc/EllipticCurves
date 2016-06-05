@@ -1,0 +1,9 @@
+C:\Data\cross\EllipticCurves\UITests\bin\Debug\EllipticCurves.UITests.dll
+C:\Data\cross\EllipticCurves\UITests\bin\Debug\EllipticCurves.UITests.pdb
+C:\Data\cross\EllipticCurves\UITests\bin\Debug\nunit.framework.dll
+C:\Data\cross\EllipticCurves\UITests\bin\Debug\Xamarin.UITest.dll
+C:\Data\cross\EllipticCurves\UITests\bin\Debug\nunit.framework.xml
+C:\Data\cross\EllipticCurves\UITests\bin\Debug\Xamarin.UITest.xml
+C:\Data\cross\EllipticCurves\UITests\obj\Debug\EllipticCurves.UITests.csprojResolveAssemblyReference.cache
+C:\Data\cross\EllipticCurves\UITests\obj\Debug\EllipticCurves.UITests.dll
+C:\Data\cross\EllipticCurves\UITests\obj\Debug\EllipticCurves.UITests.pdb

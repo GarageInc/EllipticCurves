@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.ellipticcurves" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.garagerinat.ellipticcurves" android:installLocation="auto">
   <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="19" />
   <uses-permission android:name="android.permission.INTERNET" />
   <application android:icon="@drawable/main_icon" android:label="Эллиптические кривые 1.0" android:name="mono.android.app.Application" android:allowBackup="true" android:debuggable="true">
@@ -9,12 +9,12 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="com.companyname.ellipticcurves.mono.MonoRuntimeProvider.__mono_init__" />
+    <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="com.garagerinat.ellipticcurves.mono.MonoRuntimeProvider.__mono_init__" />
     <!--suppress ExportedReceiver-->
     <receiver android:name="mono.android.Seppuku">
       <intent-filter>
         <action android:name="mono.android.intent.action.SEPPUKU" />
-        <category android:name="mono.android.intent.category.SEPPUKU.com.companyname.ellipticcurves" />
+        <category android:name="mono.android.intent.category.SEPPUKU.com.garagerinat.ellipticcurves" />
       </intent-filter>
     </receiver>
   </application>

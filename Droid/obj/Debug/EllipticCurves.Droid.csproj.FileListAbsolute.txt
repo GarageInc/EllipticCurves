@@ -1,7 +1,5 @@
 C:\Data\cross\EllipticCurves\Droid\bin\Debug\EllipticCurves.Droid.dll
 C:\Data\cross\EllipticCurves\Droid\bin\Debug\EllipticCurves.Droid.pdb
-C:\Data\cross\EllipticCurves\Droid\bin\Debug\com.companyname.ellipticcurves.apk
-C:\Data\cross\EllipticCurves\Droid\bin\Debug\com.companyname.ellipticcurves-Signed.apk
 C:\Data\cross\EllipticCurves\Droid\bin\Debug\EllipticCurves.dll
 C:\Data\cross\EllipticCurves\Droid\bin\Debug\FormsViewGroup.dll
 C:\Data\cross\EllipticCurves\Droid\bin\Debug\Xamarin.Android.Support.v4.dll
@@ -16,7 +14,6 @@ C:\Data\cross\EllipticCurves\Droid\bin\Debug\Xamarin.Forms.Xaml.xml
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\EllipticCurves.Droid.csprojResolveAssemblyReference.cache
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\EllipticCurves.Droid.dll
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\EllipticCurves.Droid.pdb
-C:\Data\cross\EllipticCurves\Droid\obj\Debug\android\bin\com.companyname.ellipticcurves.apk
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\res\drawable\icon.png
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\res\drawable-hdpi\icon.png
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\res\drawable-xhdpi\icon.png
@@ -24,6 +21,9 @@ C:\Data\cross\EllipticCurves\Droid\obj\Debug\res\drawable-xxhdpi\icon.png
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\res\drawable\main_icon.png
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\R.cs.flag
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\uploadflags.txt
+C:\Data\cross\EllipticCurves\Droid\bin\Debug\com.garagerinat.ellipticcurves.apk
+C:\Data\cross\EllipticCurves\Droid\bin\Debug\com.garagerinat.ellipticcurves-Signed.apk
+C:\Data\cross\EllipticCurves\Droid\obj\Debug\android\bin\com.garagerinat.ellipticcurves.apk
 C:\Data\cross\EllipticCurves\Droid\bin\Debug\EllipticCurves.dll.mdb
 C:\Data\cross\EllipticCurves\Droid\obj\Debug\EllipticCurves.Droid.dll.mdb
 C:\Data\cross\EllipticCurves\Droid\bin\Debug\EllipticCurves.Droid.dll.mdb
